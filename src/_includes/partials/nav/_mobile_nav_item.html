@@ -1,0 +1,95 @@
+<li class=" list-none border-red-700 border-b border-solid border-opacity-[0.09]" 
+	x-data="{ menuItemOpen: false }" 
+	x-on:click="menuItemOpen = !menuItemOpen"
+	@click.outside="menuItemOpen = false">
+	{% if item.sub_navs %}
+		<button class="bg-white w-full p-6 border-none font-extrabold text-xl text-cloudinary flex items-center justify-between">
+			{{ item.name }} 
+			<svg :class="menuItemOpen ? 'transition duration-300 ease-cloudinary-cubic rotate-180' : 'transition duration-300 rotate-0'" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+				<path d="m18 10-1.41-1.41-4.59 4.58-4.59-4.58-1.41 1.41 6 6z" fill="#034ad8"></path>
+			</svg>
+		</button>
+		<div class="" x-show="menuItemOpen" x-cloak="">
+			<ul class="p-6 pt-0">
+				{% for sub_nav in item.sub_navs %}
+					<div class="uppercase text-carbon text-xs tracking-[6px] font-medium pb-4 mt-6 first:mt-0">
+						{{ sub_nav.title }}
+					</div>
+					{% for sub_item in sub_nav.sub_nav %}
+						<li>
+							{% if sub_item.link %}
+								<a href="{{ sub_item.link }}" class="block py-2 group">
+									<div class="flex">
+										{% if sub_item.icon_path %}
+											{% assign icon_path = "/src/images/icons/" | append: sub_item.icon_path | append: ".svg" %}
+											<span class="w-6 relative block transition [&>*]:stroke-{{ sub_item.nav_icon_color }}">{{  icon_path | svgContents }}</span>
+										{% endif %}
+										<div class="flex-1 pl-4">
+											{% if sub_item.name %}
+												<span class="block text-neutral-700 text-base font-medium">
+													{{ sub_item.name }} 
+												</span>
+											{% endif %}
+											{% if sub_item.description %}
+												<span class="block text-neutral-500 text-xs">
+													{{ sub_item.description }}
+												</span>
+											{% endif %}
+										</div>
+									</div>
+								</a>
+							{% endif %}
+						</li>
+					{% endfor %}
+					{% for sub_item in sub_nav.sub_card %}
+						{% if sub_item.featured_page_link %}
+							<a 
+								href="{{ sub_item.featured_page_link }}" 
+								class="block p-2 group border-2 border-carbon rounded-lg overflow-scroll">
+								<div class="flex"> 
+									<div class="flex-1">
+										{% assign pages = collections.all %}
+										{% for page in pages %}
+											{% if page.url == sub_item.featured_page_link %}
+											{% if sub_item.image.image_path %}
+											{% assign image_path = sub_item.image.image_path %}
+										{% else %}
+											{% if page.data.image.path %}
+												{% assign image_path = page.data.image.path  %}
+												{% assign image_alt = page.data.image.alt %}													
+											{% else %}
+												{% assign image_path = page.data.image %}
+											{% endif %}
+										{% endif %}	
+										{% bookshop "helpers/image" image: image_path alt: person.data.name width: 500 responsive: false classes: 'rounded-lg object-cover min-h-[138px] min-w-full' %}
+												<div class="text-base font-semibold pt-4 pb-1">
+													{% if sub_item.name %}
+														{{ sub_item.name }}
+													{% else %}
+														{{ page.data.title }}
+													{% endif %}
+												</div>
+											{% endif %}
+										{% endfor %}
+										<div class="font-bold bottom-5 text-cloudinary transition">
+										<span class="group-hover:underline">Learn More</span>
+										<span class="inline-block w-4 relative top-[3px] outline-cloudinary ml-1">
+											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+											</svg>
+										</span>
+									</div>
+									</div>
+								</div>
+							</a>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</ul>
+		</div>
+	{% else %}
+		<a href="{{ item.link }}" class="bg-white w-full p-6 border-none font-extrabold text-xl text-cloudinary flex items-center">
+			{{ item.name }} 
+		</a>
+	{% endif %}
+</li>

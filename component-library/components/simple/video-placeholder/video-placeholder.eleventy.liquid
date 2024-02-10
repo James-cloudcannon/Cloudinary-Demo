@@ -1,0 +1,153 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_image = content.placeholder_image.desktop_image %}
+
+{% if content.placeholder_image.tablet_image %}
+	{% assign tablet_image = content.placeholder_image.tablet_image %}
+{% else %}
+	{% assign tablet_image = desktop_image %}
+{% endif %}
+
+{% if content.placeholder_image.mobile_image %}
+	{% assign mobile_image = content.placeholder_image.mobile_image %}
+{% else %}
+	{% assign mobile_image = tablet_image %}
+{% endif %}
+
+{% assign container_name = "video-placeholder" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+
+		.{{ container_name}} .desktop_image {
+			display: block;
+		}
+
+		.{{ container_name}} .tablet_image, .{{ container_name}} .mobile_image {
+			display: none;
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+
+		.{{ container_name}} .tablet_image {
+			display: block;
+		}
+
+		.{{ container_name}} .desktop_image, .{{ container_name}} .mobile_image {
+			display: none;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+
+		.{{ container_name}} .mobile_image {
+			display: block;
+		}
+
+		.{{ container_name}} .desktop_image, .{{ container_name}} .tablet_image {
+			display: none;
+		}
+	}
+</style>
+
+<div class="relative z-10">
+	<div
+		x-init=""
+		x-data="
+			{ 
+				'showModal': false,
+				'renderIframe': false,
+				async hide() { 
+					this.showModal = false; 
+					let p = await this.player();
+					p.pause(); 
+				}, 
+				show() {
+					var t = this;
+					this.loadScript('https://player.vimeo.com/api/player.js', async function() {
+						t.showModal = true;
+						t.renderIframe = true;
+						let p = await t.player();
+						p.play(); 
+					});
+				},
+				async player() {
+					let keepTrying, 
+							attempts = 50;
+					do {
+							try {
+								var v = new Vimeo.Player($refs.video);
+								return v;
+							} catch(err) {
+									keepTrying = true;
+									attempts--;
+									await this.sleep(100);
+							}
+					} while (keepTrying && attempts > 0);
+				},
+
+				sleep(ms) {
+					return new Promise(resolve => setTimeout(resolve, ms));
+				},
+
+				loadScript(url, fn) {
+					let script;
+					const scripts = Array.from(document.querySelectorAll('script'));
+					const existingScript = scripts.find((script) => script.src === url);
+					if (!existingScript) {
+						script = document.createElement('script');
+						script.type = 'text/javascript';
+						script.src = url;
+						script.onload = fn;
+						document.getElementsByTagName('head')[0].appendChild(script);
+						
+					} else {
+						fn();
+					}
+				}
+			}"
+		@keydown.escape="showModal = false">
+
+		<button @click="show()" class="w-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block" aria-label="Play Video">
+			<div class="rounded-full bg-yellow-300 text-center border-carbon border-2 p-6 scale-[.6] hover:scale-[.7] md:scale-75 md:hover:scale-[.85] lg:scale-100 lg:hover:scale-110 transition">
+				{{ '/src/images/icons/outline/play.svg' | svgContents }}
+			</div>
+		</button>
+
+		{% assign c = 'w-full' %}
+		<div class="{{ container_name }}">
+			<div class="desktop_image">
+				{% bookshop "helpers/image" image: desktop_image alt: content.title responsive: true classes: c %}
+			</div>
+
+			<div class="tablet_image">
+				{% bookshop "helpers/image" image: tablet_image alt: content.title responsive: true classes: c %}
+			</div>
+
+			<div class="mobile_image">
+				{% bookshop "helpers/image" image: mobile_image alt: content.title responsive: true classes: c %}
+			</div>
+		</div>
+		{% bookshop "helpers/video-modal" video:content.video title:content.title %}
+	</div>
+</div>

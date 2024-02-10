@@ -1,0 +1,53 @@
+{% if autoplay %}
+	{% if video contains '?' %}
+		{% assign video = video | append: '&' %}
+	{% else %}
+		{% assign video = video | append: '?' %}
+	{% endif %}
+
+	{% assign video = video | append: 'muted=1&background=1&loop=1&autopause=0&autoplay=1' %}
+{% endif %}
+
+{% assign classes = "" %}
+
+{% if transform %}
+	{% if transform.scale %}
+		{% assign classes = classes | append: " scale-[" | append: transform.scale | append: "]" %}
+	{% endif %}
+
+	{% if transform.translate_x %}
+		{% assign classes = classes | append: " translate-x-[" | append: transform.translate_x | append: "px]" %}
+	{% endif %}
+
+	{% if transform.translate_y %}
+		{% assign classes = classes | append: " translate-y-[" | append: transform.translate_y | append: "px]" %}
+	{% endif %}
+
+{% endif %}
+
+{% if margin.top %}
+	{% assign classes = classes | append: " mt-[" | append: margin.top | append: "px]" %}
+{% endif %}
+
+{% if margin.left %}
+	{% assign classes = classes | append: " ml-[" | append: margin.left | append: "px]" %}
+{% endif %}
+
+{% if margin.bottom %}
+	{% assign classes = classes | append: " mb-[" | append: margin.bottom | append: "px]" %}
+{% endif %}
+
+{% if margin.right %}
+	{% assign classes = classes | append: " mr-[" | append: margin.right | append: "px]" %}
+{% endif %}
+
+<iframe
+	class="{{ classes }}"
+	{% if modal %} x-ref="video" style="position:absolute;top:0;left:0;width:100%;height:100%;" x-bind:src="renderIframe ? '{{ video }}': null"
+	{% else %} src="{{ video }}" {% endif %}
+	allow="autoplay; fullscreen; picture-in-picture" 
+	allowfullscreen="" 
+	title="{{ title }}" 
+	data-ready="true"
+	loading="lazy"
+	frameborder="0"></iframe>

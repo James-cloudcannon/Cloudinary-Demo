@@ -1,0 +1,10 @@
+{% assign classes = "" %}
+{% if styles.scale %}
+	{% assign classes = classes | append: " scale-[" | append: styles.scale | append: "]" %}
+{% endif %}
+
+<div class="flex justify-center">
+	<div class="rounded-full w-[120px] h-[120px] flex items-center justify-center bg-white shadow-xl border border-gray-100 p-3">
+		<img src="{{ content.image }}" alt="{{ content.alt }}" class="{{ classes }}">
+	</div>
+</div>

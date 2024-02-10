@@ -1,0 +1,57 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+{% assign classes = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "logo-ticker" | UUID %}
+
+{% assign bg_mode = styles.background_mode %}
+
+{% if bg_mode %}
+	{% assign classes = classes | append: ' flex justify-center' %}
+{% else %}
+	{% assign classes = classes | append: ' md:flex justify-between' %}
+{% endif %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ classes }} flex-wrap gap-4  {{ container_name }}">
+	{% for item in content.logo_blocks %}
+		{% if bg_mode %}
+			<div class="bg-inherit rounded-xl w-[200px]">
+		{% endif %}
+		{% if item.content.url %}
+			<a href="{{ item.content.url }}" class="hover:scale-110 transition block">
+		{% endif %}
+		
+			{% bookshop "simple/logo" content:item.content styles:item.styles %}
+		{% if item.content.url %}
+			</a>
+		{% endif %}
+		{% if bg_mode %}
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>

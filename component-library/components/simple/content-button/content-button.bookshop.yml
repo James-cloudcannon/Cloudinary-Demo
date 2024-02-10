@@ -1,0 +1,46 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Content button"
+  description: A large, clickable blog which links somewhere else
+  icon: smart_button
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    url:
+    text:
+  styles:
+    margin:
+      top: 0
+      bottom: 0
+    style: black
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  margin:
+    comment: Adjust the spacing between the button holder and other components. Can be negative for overlapping.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number
+  style:
+    comment: The color scheme of the button
+    type: select
+    options:
+      values:
+        - black
+  url:
+    type: url
+    comment: The location to go to on click
+  text:
+    comment: The content inside the button

@@ -1,0 +1,84 @@
+<section id="c-review-with-image" class="relative py-16 bg-center bg-cover" x-data="{ activeTab: 0, tabs: [] }" x-init="tabs = [...Array({{ content.reviews | size }}).keys()]" style="background-color: {{ background_color }}">
+  <div class="container mx-auto px-4">
+   
+    <div class="tab-content">
+        <div class="lg:absolute lg:mt-4 lg:ml-[-1rem] mb-4 pb-10 w-fit lg:border-b-2 border-[#707070]">
+            <h2 class="text-4xl font-normal">{{ content.title }}</h2>
+          </div>
+      {% for review in content.reviews %}
+      <div x-show="activeTab === tabs[{{ forloop.index0 }}]"
+           class="flex relative" x-cloak>
+        <div class="py-5 px-7 pr-0 m-auto lg:mr-4 lg:ml-0 h-fit text-center lg:text-end self-center custom-card">
+            <blockquote class="quote relative text-2xl leading-10 font-thin text-[#707070]">{{ review.quote.text_content | markdownify }}</blockquote>
+            <div class="mt-4 text-xl font-normal text-black">{{ review.quote.author }}</div>
+            <div class="font-normal text-[#707070]">{{ review.quote.job_title }}</div>
+        </div>
+        <div class="max-w-[27%]"><img class="w-full max-w-md mx-auto my-8 hidden lg:block" src="{{ review.image.image_path }}" alt="{{ review.image.alt_text }}"></div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="flex flex-col lg:flex-row justify-center gap-x-4 mt-4">
+      {% for review in content.reviews %}
+      <button
+        class="tab-titles text-gray-400 text-lg font-semibold py-2 px-4 max-w-[200px] self-center"
+        :class="{ 'text-black border-b-2 border-cloudinary': activeTab === tabs[{{ forloop.index0 }}] }"
+        @click.prevent="activeTab = tabs[{{ forloop.index0 }}]">
+        {% if review.tab_name.image %}
+            {% bookshop "helpers/image" image: review.tab_name.image.image_path alt: review.tab_name.image.alt_text responsive: false classes: 'mx-auto w-fit' %}
+        {% else %}
+          {{ review.tab_name.text }}
+        {% endif %}
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<style>
+    .custom-card {
+        color: #707070;
+        background-color: #FFF;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        font-size: 22px;
+        line-height: 32px;
+        border-radius: 24px;
+        padding: 40px 45px;
+        text-align: left;
+        max-width: unset;
+        
+        @media screen and (min-width: 1024px) {
+            margin-right: 0;
+            padding: 40px 20px 45px 50px;
+            border-radius: 24px 0 0 24px;
+            max-width: 60%;
+            text-align: end;
+
+            
+        }
+        
+    }
+
+    .tab-titles {
+        @media screen and (max-width: 1023px) {
+            margin: 0;
+            
+        }
+    }
+
+    .quote:after {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: -80px;
+        width: 64px;
+        height: 64px;
+        background-image: url(https://cloudinary-marketing-res.cloudinary.com/image/upload/f_auto,q_auto/v1662766819/ellipse-new-home.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    [x-cloak] {
+        display: none;
+    }
+</style>

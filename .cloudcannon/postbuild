@@ -1,0 +1,12 @@
+#!/bin/bash
+
+npm install
+npx @bookshop/generate
+npm run build
+[[ -n $RUN_JAMPACK ]] && npm run polish
+npx -y pagefind@1 --site _site --output-subdir _pagefind
+
+
+
+
+

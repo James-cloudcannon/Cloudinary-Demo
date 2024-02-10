@@ -1,0 +1,14 @@
+---
+layout: page.html
+---
+{% if content_blocks %}
+	{% bookshop_include "page" content_blocks: content_blocks %}
+{% elsif top_content.content_blocks %}
+	{% bookshop_include "page" content_blocks: top_content.content_blocks %}
+{% endif %}
+
+{{ content }}
+
+{% if bottom_content.content_blocks %}
+	{% bookshop_include "page" content_blocks: bottom_content.content_blocks %}
+{% endif %}

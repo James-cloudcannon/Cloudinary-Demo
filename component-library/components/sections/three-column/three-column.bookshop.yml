@@ -1,0 +1,68 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Three column"
+  description: "Set ups Three columns which componenets can be added to"
+  icon: more_horiz
+  tags: ['container']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    left:
+      blocks: []
+    middle:
+      blocks: []
+    right:
+      blocks: []
+  styles:
+    desktop:
+      columns:
+        type: split
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment: 
+        v_align: top
+    tablet:
+      columns:
+        active: false
+        type: split
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment:
+        active: false
+        v_align: top
+    mobile:
+      columns:
+        active: false
+        type: split
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment:
+        active: false
+        v_align: top
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  left:
+    comment: "Components for the left column"
+  middle:
+    comment: "Components for the middle column"
+  right:
+    comment: "Components for the right column"
+  type:
+    comment: "The type of three column layout to render"
+    options:
+      values:
+        - split
+        - stacked
+  vertically_center:
+    comment: Whether to vertically center the content of the columns
+    type: switch
+  gap:
+    comment: The size of the gap between the columns
+    type: number

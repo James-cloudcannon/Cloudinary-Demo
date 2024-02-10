@@ -1,0 +1,114 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Heading"
+  description: "Sets any kind of heading"
+  icon: sort_by_alpha
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    text: "Hello World!"
+  styles:
+    element: h2
+    width: normal
+    desktop:
+      text_alignment:
+        align: center
+      text_sizing:
+        text_size: big
+      margin:
+        top: 0
+        bottom: 0
+    tablet:
+      text_alignment:
+        active: false
+        align: center
+      text_sizing:
+        active: false
+        text_size: big
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+    mobile:
+      text_alignment:
+        active: false
+        align: center
+      text_sizing:
+        active: false
+        text_size: big
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  active:
+    comment: These values won't be used unless active is enabled.
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  color:
+    type: select
+    comment: The color of text.
+    options:
+      values:
+        - none
+        - white
+  text_size:
+    type: select
+    comment: How large the text is
+    options:
+      values:
+        - biggest
+        - big
+        - normal
+        - small
+        - smallest
+  element:
+    type: select
+    comment: The type of heading.
+    options:
+      values:
+        - h1
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+  align:
+    type: select
+    comment: The alignment of the heading.
+    options:
+      values:
+        - left
+        - center
+        - right
+        - justify
+  width:
+    type: select
+    comment: The width of the heading
+    options:
+      values:
+        - normal
+        - tight
+  margin:
+    comment: Adjust the spacing between the heading and other components. Can be negative for overlapping.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number

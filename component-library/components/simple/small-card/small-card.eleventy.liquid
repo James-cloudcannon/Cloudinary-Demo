@@ -1,0 +1,85 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+{% assign classes = "" %}
+{% assign classes_main_div = "" %}
+{% assign classes_sub_div = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "small-card" | UUID %}
+
+{% case styles.background %}
+  {% when 'caramel' %}
+    {% assign classes = classes | append: " bg-caramel light-text" %}
+  {% when 'sky' %}
+    {% assign classes = classes | append: " bg-sky light-text" %}
+  {% when 'sea' %}
+    {% assign classes = classes | append: " bg-sea light-text" %}
+  {% when 'cloudinary-blue' %}
+    {% assign classes = classes | append: " bg-cloudinary dark-text" %}
+  {% when 'ash' %}
+    {% assign classes = classes | append: " bg-ash light-text" %}
+  {% when 'night' %}
+    {% assign classes = classes | append: " bg-night dark-text" %}
+  {% when 'midnight' %}
+    {% assign classes = classes | append: " bg-midnight dark-text" %}
+{% else %}
+  {% assign classes = classes | append: " bg-white light-text" %}
+{% endcase %}
+
+{% case styles.border_color %}
+  {% when 'white' %}
+    {% assign classes = classes | append: " border-white" %}
+  {% when 'grey' %}
+    {% assign classes = classes | append: " border-grey" %}
+  {% when 'cloudinary-blue' %}
+    {% assign classes = classes | append: " border-cloudinary" %}
+  {% when 'carbon' %}
+    {% assign classes = classes | append: " border-carbon" %}
+  {% when 'none' %}
+    {% assign classes = classes | append: "" %}
+{% else %}
+  {% assign classes = classes | append: " border-carbon" %}
+{% endcase %}
+
+{% if content.icon.hide_icon %}
+{% assign classes_main_div = classes_main_div | append: " p-8 md:min-w-[300px] xlg:max-w-[374px]" %}
+{% else %}
+{% assign classes_sub_div = classes_sub_div | append: "pt-5 md:pt-0 md:pl-5" %}
+{% endif %}
+
+<style>
+  @media(min-width: 1280px) {
+    .{{ container_name}}{
+      {{ desktop_styles }}
+    }
+  }
+
+  @media(min-width: 768px) and (max-width: 1279px) {
+    .{{ container_name}}{
+      {{ tablet_styles }}
+    }
+  }
+
+  @media(max-width: 767px) {
+    .{{ container_name}}{
+      {{ mobile_styles }}
+    }
+  }
+</style>
+
+<div class="{{ container_name }} {{ classes }} border-2 md:flex rounded-xl p-5 {{ classes_main_div }}">
+  {% if content.icon.hide_icon != true %}
+    <div class="w-[58px] grow-0 shrink-0">
+      {% bookshop "helpers/icon_w_bg" icon_path: content.icon.icon_path icon_color: content.icon.icon_color icon_size: 'normal' %}
+    </div>
+  {% endif %}
+  <div class="relative  {{ classes_sub_div }}">
+      {% for component in content.blocks %}
+        {% bookshop "{{component._bookshop_name}}" bind: component %}
+      {% endfor %}
+  </div>
+</div>

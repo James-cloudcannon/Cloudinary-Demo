@@ -1,0 +1,27 @@
+<nav class="c-breadcrumbs" aria-label="breadcrumbs">
+    <ol class="align-center flex-wrap hidden sm:flex">
+        {% assign crumb_url = "/" %}
+        {% assign breadcrumb = page.url | remove: "tags/" | split: "/" %}
+        {% for crumb in breadcrumb %}
+            {% unless forloop.first or forloop.last %}
+                {% assign crumb_url = crumb_url | append: crumb | append: "/" %}
+                <li class="flex">
+                    <a href="{{ crumb_url }}" class="text-cloudinary hover:underline">{{ crumb | replace: "-", ' ' | capitalize }}</a>
+                    <span class="px-2">/</span>
+                </li>
+            {% endunless -%}
+        {% endfor %}
+        {% if content.final_crumb and content.final_crumb != "" %}
+            <li><span aria-current="page">{{ content.final_crumb }}</span></li>
+        {% else %}
+            {% assign regex = "(:|;|—|–|(?<!vs)\\.|!|\\?|\\.\\.\\.) (?!Part).*" %}
+            <li><span aria-current="page">{{ title | replaceRE: regex, ""}}</span></li>
+        {% endif %}
+    </ol>
+    {% assign last_crumb = page.url | remove: "tags/" | split: "/" | last | append: "/" %}
+    {% assign breadcrumb = page.url | remove: "tags/" | remove: last_crumb %}
+    <a href="{{ breadcrumb }}" class="text-cloudinary hover:underline flex sm:hidden">
+        <span>{{ '/src/images/icons/outline/chevron-left.svg' | svgContents: 'stroke-cloudinary w-5 h-5 inline align-text-bottom' }}</span>
+        {{- breadcrumb | split: "/" | last | replace: "-", ' ' | capitalize -}}
+    </a>
+</nav>

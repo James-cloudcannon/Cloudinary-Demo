@@ -1,0 +1,31 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_spacer: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_spacer: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_spacer: styles, 'mobile' %}
+
+{% assign container_name = "spacer" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }}"></div>

@@ -1,0 +1,66 @@
+{% assign classes = styles.extra_classes %}
+{% assign bg_color = "" %}
+{% assign border_radius = "" %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_padding: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_padding: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_padding: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_sub_text_block_text_size: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_sub_text_block_text_size: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_sub_text_block_text_size: styles, 'mobile' %}
+
+{% case styles.background-color %}
+  {% when 'grey' %}
+    {% assign bg_color = "bg-carbon-100" %}
+  {% when 'white' %}
+    {% assign bg_color = "bg-white" %}
+  {% when 'cloudinary-blue' %}
+    {% assign bg_color = "bg-cloudinary dark-text" %}
+  {% when 'carbon' %}
+    {% assign bg_color = "bg-carbon dark-text" %}
+{% endcase %}
+
+
+{% case styles.border-radius %}
+  {% when 'full' %}
+    {% assign border_radius = "rounded-full" %}
+  {% when 'half' %}
+    {% assign border_radius = "rounded" %}
+  {% when 'none' %}
+    {% assign border_radius = "rounded-none" %}
+{% endcase %}
+
+
+
+{% assign container_name = "info-pill" | UUID %}
+
+<style>
+  @media(min-width: 1280px) {
+    .{{ container_name }}{
+      {{ desktop_styles }}
+    }
+  }
+
+  @media(min-width: 768px) and (max-width: 1279px) {
+    .{{ container_name }}{
+      {{ tablet_styles }}
+    }
+  }
+
+  @media(max-width: 767px) {
+    .{{ container_name }}{
+      {{ mobile_styles }}
+    }
+  }
+</style>
+
+<span class="{{ container_name }} {{ classes }} {{ bg_color }} {{ border_radius }} absolute px-5 py-2 font-bold">{{ content.text }}</span>

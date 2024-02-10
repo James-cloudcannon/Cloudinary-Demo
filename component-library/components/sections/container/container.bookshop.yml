@@ -1,0 +1,132 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - content_blocks
+    - blocks
+  label: "Container"
+  description: The main building block for pages. Will contain many smaller components.
+  icon: web_asset
+  tags: ['containers']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    label:
+    blocks: []
+  styles:
+    background: 
+    background_image:
+      active: false 
+      image_path: ""
+    rounded: none
+    size: normal
+    align: none
+    shadow: false
+    desktop:
+      margin:
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+    tablet:
+      margin:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+    mobile:
+      margin:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  active:
+    comment: These values won't be used unless active is enabled.
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  label:
+    comment: This is used to help identify the section in CloudCannon. It's not output anywhere on the page.
+  blocks:
+    comments: Add components inside this section.
+  background:
+    type: select
+    comment: The background color for the entire section
+    options:
+      values:
+        - white
+        - caramel
+        - sky
+        - sea
+        - cloudinary-blue
+        - cloudinary-blue-light
+        - cloudinary-dark-blue
+        - ash
+        - night
+        - transparent
+        - rich-black
+        
+  rounded:
+    type: select
+    comment: Sets the style of rounded corners on the section.
+    options:
+      values:
+        - none
+        - top
+        - full
+  margin:
+    comment: Adjust the spacing between this container and others. Can be negative for overlapping.
+  padding:
+    comment: Adjust the spacing inside this container.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number
+  size:
+    type: select
+    comment: Adjust the width of the section
+    options:
+      values:
+        - normal
+        - small
+  align:
+    comment: Customize how the section is aligned on the page
+    type: select
+    options:
+      values:
+        - none
+        - center
+  classes:
+    hidden: true

@@ -1,0 +1,69 @@
+{% assign img_classes = classes %}
+
+{% if max_width %}
+  {% assign img_classes = img_classes | append: ' max-w-[' | append: max_width | append: 'px] mx-auto ' %}
+{% endif %}
+
+{% if image contains 'cc-dam.imgix.net' %}
+
+  {% if width | is_integer %}
+    {% assign w = width %}
+  {% else %}
+    {% assign w = 1216 %}
+  {% endif %}
+
+  {% assign is_height_integer = height | is_integer %}
+  {% if is_height_integer and height > 0 and height != "0" %}
+    {% assign h = height %}
+  {% else %}
+    {% assign h = null %}
+  {% endif %}
+
+  {% if meta.env == 'production' %}
+    {% assign dimensions = image | image_resize: w, 1, h | image_dimensions %}
+  {% else %}
+    {% assign dimensions = '' %}
+  {% endif %}
+
+  {% assign image_path = image | replace: ' ', '%20' %}
+
+  {% if responsive %}
+    <picture class="{{ picture_classes }}">
+      {% assign c_width = w %}
+      {% for i in (0..5) %}
+        {% assign m = i | times: 300 %}
+        {% assign i_width = w | minus: m %}
+        {% if i_width < 200 %}
+          {% break %}
+        {% endif %}
+        {% assign c_width = i_width %}
+
+        {% assign c_height = nil %}
+        {% if h %}
+          {% assign reduce_ratio = c_width | divided_by: w %}
+          {% assign c_height = h | times: reduce_ratio %}
+        {% endif %}
+
+        <source media="(min-width: {{ c_width }}px)" srcset="{{ image_path | image_resize: c_width, 2, c_height }} 2x, {{ image_path | image_resize: c_width, 1, c_height }} 1x">
+      {% endfor %}
+
+      <img
+        
+        src="{{ image_path | image_resize: c_width, 1, c_height }}"
+        {{ dimensions }}
+        alt="{{ alt }}"
+        class="{{ img_classes }}">
+    </picture>
+  {% else %}
+    <img
+      src="{{ image_path | image_resize: w, 1, h }}"
+      alt="{{ alt }}"
+      {{ dimensions }}
+      class="{{ img_classes }}">
+  {% endif %}
+{% else %}
+  <img
+    src="{{ image }}"
+    alt="{{ alt }}"
+    class="{{ img_classes }}">
+{% endif %}

@@ -1,0 +1,25 @@
+---
+permalink: /sitemap_index.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	{% for page in collections.all %}
+		{% if page.url %}
+			<url>
+				<loc>{{ site.site_url }}{{ page.url | url }}</loc>
+				<lastmod>{{ page.date | date: "%Y-%m-%d %H:%M" }}</lastmod>
+			</url>
+		{% endif %}
+	{% endfor %}
+</urlset>
+
+
+<sitemapindex>
+	<sitemap>
+		<loc>https://cloudinary.com/sitemap.xml</loc>
+	</sitemap>
+	<sitemap>
+		<loc>https://cloudinary.com/documentation/sitemap.xml</loc>
+	</sitemap>
+</sitemapindex>

@@ -1,0 +1,60 @@
+{% assign base_classes = 'border-l-2 border-r-2 border-carbon px-3' %}
+{% for num in (1..content.plan_count) %}
+	{% assign i = num | minus: 1 %}
+	<table class="w-full border-separate border-spacing-y-0 md:hidden mb-10 last:mb-0">
+		<tr>
+			<td class="{{ base_classes }} border-t-2 rounded-t-xl pb-5 text-xl font-bold pt-8">{{ content.names[i] }}</td>
+		</tr>
+
+		<tr>
+			<td class="{{ base_classes }}">
+				{% assign priced_plan = content.prices[i] | is_integer %}
+				{% if priced_plan %}
+					{% bookshop 'pricing/price' price:content.prices[i] description:'/ month (USD)' %}
+				{% else %}
+					<div class="font-bold mb-6 text-3xl">{{ content.prices[i] }}</div>
+				{% endif %}
+			</td>
+		</tr>
+
+		<tr>
+			<td class="{{ base_classes }} pt-3 pb-6">
+				{{ content.descriptions[i] }}
+			</td>
+		</tr>
+
+		<tr>
+			<td class="{{ base_classes }} pt-3 pb-6">
+				{% assign style = 'outline' %}
+				{% if i == 0 %}
+					{% assign style = 'normal' %}
+				{% endif %}
+				
+				{% if content.prices[i] | is_integer %}
+					{% assign text = 'Start 14-day trial' %}
+				{% else %}
+					{% assign text = 'Book a call with us' %}
+				{% endif %}
+				{% bookshop 'helpers/button' text:text size:'normal' style:style extra_classes:'w-full' %}
+			</td>
+		</tr>
+
+		{% bookshop 'pricing/mobile-features' features:content.features base_classes:base_classes index:i %}
+
+		<tr>
+			<td class="{{ base_classes }} py-8 border-b-2 rounded-b-xl">
+				{% assign style = 'outline' %}
+				{% if i == 0 %}
+					{% assign style = 'normal' %}
+				{% endif %}
+				
+				{% if content.prices[i] | is_integer %}
+					{% assign text = 'Start 14-day trial' %}
+				{% else %}
+					{% assign text = 'Book a call with us' %}
+				{% endif %}
+				{% bookshop 'helpers/button' text:text size:'normal' style:style extra_classes:'w-full' %}
+			</td>
+		</tr>
+	</table>
+{% endfor %}

@@ -1,0 +1,33 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "icon-list" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }}">
+	{{ content.embed_block }}
+</div>

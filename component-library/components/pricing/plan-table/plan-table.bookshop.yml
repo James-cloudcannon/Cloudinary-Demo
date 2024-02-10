@@ -1,0 +1,63 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Pricing plan summary"
+  description: "Shows a short summary of pricing plans"
+  icon: dataset
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+      plan_count: 3
+      names: 
+      links: 
+      prices: 
+      descriptions: 
+      ctas: 
+      features:
+        - name:
+          description: 
+          plan_allocation: 
+          sub_features: 
+  styles:
+    desktop:
+      margin:
+        top: 0
+        bottom: 0
+    tablet:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+    mobile:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  active:
+    comment: These values won't be used unless active is enabled.
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  justify:
+    comments: How the buttons are distributed in the component
+  margin:
+    comment: Adjust the spacing between the button holder and other components. Can be negative for overlapping.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number

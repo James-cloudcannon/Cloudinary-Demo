@@ -1,0 +1,90 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% case styles.background %}
+{% when 'midnight' %}
+	{% assign classes = classes | append: ' bg-midnight dark-text' %}
+	{% assign border_closed = 'border-gray-700' %}
+	{% assign border_open = 'border-cloudinary' %}
+{% endcase %}
+
+{% if styles.gaps %}
+	{% assign classes = classes | append: ' mt-3 first:mt-0 rounded-lg border-2 ' %}
+{% else %}
+	{% assign classes = classes | append: ' highlight-border border-b last:border-0' %}
+{% endif %}
+
+{% assign hover_drop_color = styles.active_dropdown_icon.icon_color %}
+{% unless hover_drop_color %}
+	{% assign hover_drop_color = styles.dropdown_icon.icon_color %}
+{% endunless %}
+
+{% case styles.size %}
+{% when 'big' %}
+	{% assign icon_width = 'w-7 h-7' %}
+	{% assign heading_size = 'text-2xl' %}
+{% else %}
+	{% assign icon_width = 'w-4 h-4' %}
+	{% assign heading_size = 'text-xl' %}
+{% endcase %}
+
+{% assign container_name = "expandable-list" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }}">
+	{% for row in content.rows %}
+		<div :class="open ? '{{ border_open }} highlight-bg' : '{{ border_closed }}'" @click="open=!open" class="cursor-pointer px-5 py-6 {{ classes }}" x-data="{ open: false }">
+			<h4 class="font-bold {{ heading_size}}">
+				<a class="flex justify-between items-center">
+					<span class="[&>svg]:mr-3 [&>svg]:w-[28px] flex items-center">
+						{% if row.prefix_icon.icon_path %}
+							{% bookshop 'helpers/icon' icon_path: row.prefix_icon.icon_path icon_color: row.prefix_icon.icon_color %}
+						{% endif %}
+						{{ row.title }}
+					</span>
+					<span {% if styles.rotate %}:class="open ? 'rotate-180' : ''"{% endif %} class="origin-center whitespace-nowrap {{ icon_width }} [&>svg]:w-full transition">
+						{% if styles.dropdown_icon.icon_path %}
+							<div x-show="!open">
+								{% bookshop 'helpers/icon' icon_path: styles.dropdown_icon.icon_path %}
+							</div>
+
+							{% if styles.active_dropdown_icon.icon_path %}
+								<div class="active" x-cloak x-show="open">
+									{% bookshop 'helpers/icon' icon_path: styles.active_dropdown_icon.icon_path %}
+								</div>
+							{% endif %}
+						{% endif %}
+					</span>
+				</a>
+				
+			</h4>
+			<div class="pt-2 prose md:prose-lg lg:prose-xl" x-show="open" x-cloak x-collapse>
+				{{ row.description | markdownify }}
+			</div>
+		</div>
+	{% endfor %}
+</div>

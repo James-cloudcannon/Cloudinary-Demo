@@ -1,0 +1,7 @@
+<script type="module" src="/js/table-saw.js"></script>
+<style>
+table-saw:defined :is(tbody, tfoot) :is(th, td)::before {
+  color: var(--tw-prose-headings);
+}
+</style>
+<div><table-saw zero-padding text-align>{{ content_markdown }}</table-saw></div>

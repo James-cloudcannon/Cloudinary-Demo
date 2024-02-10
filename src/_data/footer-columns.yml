@@ -1,0 +1,106 @@
+- title: Products
+  items:
+    - title: Programmable Media
+      url: /website-editing/
+      open_in_new_tab: false
+    - title: DAM
+      url: /content-publishing/
+      open_in_new_tab: false
+    - title: Demos
+      url: /hosting/
+      open_in_new_tab: false
+    - title: Pricing
+      url: /technologies/
+      open_in_new_tab: false
+    - title: Roadmap
+      url: /technologies/
+      open_in_new_tab: false
+    - title: FAQ
+      url: /technologies/
+      open_in_new_tab: false
+- title: Solutions
+  items:
+    - title: Video API
+      url: /for-content-editors/
+      open_in_new_tab: false
+    - title: E-commerce
+      url: /for-marketers/
+      open_in_new_tab: false
+    - title: Retail
+      url: /for-developers/
+      open_in_new_tab: false
+    - title: Media & Entertainment
+      url: /partner-program/
+      open_in_new_tab: false
+    - title: Travel & Hospitality
+      url: /enterprise/
+      open_in_new_tab: false
+    - title: Non-Profits
+      url: /customers/
+      open_in_new_tab: false
+    - title: Our Customers
+      url: /customers/
+      open_in_new_tab: false
+    - title: Resource Library
+      url: /customers/
+      open_in_new_tab: false
+- title: Developers
+  items:
+    - title: Getting Started
+      url: /documentation/
+      open_in_new_tab: false
+    - title: Documentation
+      url: /changelog/
+      open_in_new_tab: false
+    - title: Community
+      url: /tutorials/
+      open_in_new_tab: false
+    - title: SDKs
+      url: /cheat-sheets/jekyll/
+    - title: Add-Ons
+      url: /jamstack-ecosystem/
+      open_in_new_tab: false
+    - title: Podcasts
+      url: /jamstack-ecosystem/
+      open_in_new_tab: false
+    - title: Cookbook
+      url: /jamstack-ecosystem/
+      open_in_new_tab: false
+- title: Company
+  items:
+    - title: About Us
+      url: /blog/
+      open_in_new_tab: false
+    - title: Customers
+      url: /support/
+      open_in_new_tab: false
+    - title: Partners
+      url: /events/
+      open_in_new_tab: false
+    - title: Events
+      url: /templates/
+      open_in_new_tab: false
+    - title: Careers
+      url: /templates/
+      open_in_new_tab: false
+    - title: Newsroom
+      url: /templates/
+      open_in_new_tab: false
+    - title: Blog
+      url: /templates/
+      open_in_new_tab: false
+    - title: Trust
+      url: /templates/
+      open_in_new_tab: false
+- title: Contact Us
+  items:
+    - title: Technical Support
+      url: /partner-program/
+      open_in_new_tab: false
+    - title: Contact Sales
+      url: /experts/
+      open_in_new_tab: false
+    - title: Education & Training
+      url: /experts/
+      open_in_new_tab: false
+

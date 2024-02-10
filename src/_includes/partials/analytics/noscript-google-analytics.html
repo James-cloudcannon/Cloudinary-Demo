@@ -1,0 +1,8 @@
+{% if meta.env == 'production' %}
+    {% if meta.google_analytics_tag_manager_key %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ meta.google_analytics_tag_manager_key }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
+{% endif %}

@@ -1,0 +1,101 @@
+{% assign classes = styles.classes %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_padding: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_padding: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_padding: styles, 'mobile' %}
+
+{% if styles.background_image.active %}
+{% capture bg_style %}bg-[url('{{ styles.background_image.image_path }}')] bg-no-repeat bg-top bg-cover {% endcapture %}
+{% assign classes = classes | append: ' ' | append: bg_style %}
+{% endif %}
+
+{% case styles.background %}
+	{% when 'caramel' %}
+		{% assign classes = classes | append: " bg-caramel light-text" %}
+		{% when 'sky' %}
+		{% assign classes = classes | append: " bg-sky light-text" %}
+	{% when 'sea' %}
+		{% assign classes = classes | append: " bg-sea light-text" %}
+	{% when 'cloudinary-blue' %}
+		{% assign classes = classes | append: " bg-cloudinary dark-text" %}
+	{% when 'ash' %}
+		{% assign classes = classes | append: " bg-ash light-text" %}
+	{% when 'night' %}
+		{% assign classes = classes | append: " bg-night dark-text" %}
+	{% when 'cloudinary-blue-100' %}
+		{% assign classes = classes | append: " bg-cloudinary-blue-100 light-text" %}
+	{% when 'carbon-50' %}
+		{% assign classes = classes | append: " bg-carbon-50 light-text" %}
+	{% when 'cloudinary-dark-blue' %}
+		{% assign classes = classes | append: " bg-cloudinary-dark-blue dark-text" %}
+	{% when 'cloudinary-grey' %}
+		{% assign classes = classes | append: " bg-cloudinary-grey light-text" %}
+	{% when 'rich-black' %}
+		{% assign classes = classes | append: " bg-rich-black dark-text" %}
+	{% when 'transparent' %}
+	{% else %}
+		{% assign classes = classes | append: " bg-white light-text" %}
+{% endcase %}
+
+{% case styles.rounded %}
+	{% when 'top' %}
+		{% assign classes = classes | append: " rounded-t-[40px]" %}
+		{% assign mt = " margin-top:-40px;" %}
+		{% assign desktop_styles = desktop_styles | append: mt %}
+		{% assign tablet_styles = tablet_styles | append: mt %}
+		{% assign mobile_styles = mobile_styles | append: mt %}
+	{% when 'full' %}
+		{% assign classes = classes | append: " rounded-[20px]" %}
+{% endcase %}
+
+{% case styles.size %}
+{% when 'small' %}
+	{% assign classes = classes | append: " max-w-[1000px] mx-auto" %}
+
+	{% assign mx = " margin-left:auto; margin-right:auto;" %}
+	{% assign desktop_styles = desktop_styles | append: mx %}
+	{% assign tablet_styles = tablet_styles | append: mx %}
+	{% assign mobile_styles = mobile_styles | append: mx %}
+{% endcase %}
+
+{% if styles.shadow %}
+	{% assign classes = classes | append: " shadow-xl" %}
+{% endif %}
+
+{% assign container_name = "container" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ classes }} relative {{ container_name }}">
+	<div class="container relative">
+		{% for component in content.blocks %}
+			{% bookshop "{{component._bookshop_name}}" bind: component %}
+		{% endfor %}
+	</div>
+</div>

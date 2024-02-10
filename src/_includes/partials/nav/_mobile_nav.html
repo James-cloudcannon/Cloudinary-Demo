@@ -1,0 +1,37 @@
+<div class="z-40 absolute top-[76px] bg-carbon/80 h-screen w-full left-0 overflow-x-hidden"
+	x-cloak
+	x-show="mobileNavOpen"
+	x-transition:enter="transition ease-cloudinary-cubic duration-200"
+	x-transition:enter-start="bg-carbon/0"
+	x-transition:enter-end="bg-carbon/80"
+	x-transition:leave="transition ease-cloudinary-cubic duration-200"
+	x-transition:leave-start="bg-white/80"
+	x-transition:leave-end="bg-white/0"
+	style="display: none;"
+	>
+		<div class="max-w-sm bg-white w-full absolute right-0 h-screen z-50 overflow-y-scroll min-h-screen" 
+		x-show="mobileNavOpen"
+		@click.outside="mobileNavOpen = false"
+		x-cloak
+		x-transition:enter="transition ease-cloudinary-cubic duration-200 transform"
+		x-transition:enter-start="translate-x-full"
+		x-transition:enter-end="translate-x-0"
+		x-transition:leave="transition ease-cloudinary-cubic duration-200 transform"
+		x-transition:leave-start="translate-x-0"
+		x-transition:leave-end="translate-x-full"
+	>
+		<div class="px-4 py-6 border-red-700 border-b border-solid border-opacity-[0.09]">
+			<div>
+				{% bookshop "helpers/button" text: "Sign up for free" link: "/users/register_free" style: "normal" extra_classes: "ml-1" %}
+			</div>
+		</div>
+		<nav>
+			<ul class="h-full pb-36">
+				{% for item in nav %}
+					{% include 'partials/nav/_mobile_nav_item.html' item:item %}
+				{% endfor %}
+
+			</ul>
+		</nav>
+	</div>
+</div>

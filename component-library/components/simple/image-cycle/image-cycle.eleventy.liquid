@@ -1,0 +1,86 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_transform: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_transform: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_transform: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_block_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_block_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_block_alignment: styles, 'mobile' %}
+
+{% assign container_name = "accordion" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div x-data="{ selected:1 }" class="{{ container_name }} grid-cols-2 gap-x-10 hidden md:grid">
+	<div class="flex flex-col">
+		{% assign i = 0 %}
+		{% for row in content.rows %}
+			{% assign i = i | plus: 1 %}
+			<div class="border-l-[3px] pl-3 py-3" :class="selected == {{ i }} ? 'border-blue-700' : 'border-gray-300'">
+				<h4 class="font-bold text-xl mb-1" @click="selected = {{ i }}">
+					<a class="block hover:underline">
+						{{ row.title }}
+						<span class="w-3 inline-block transition-transform" :class="selected == {{ i }} ? 'rotate-90' : ''">
+							{{ '/src/images/icons/outline/chevron-right.svg' | svgContents }}
+						</span>
+					</a>
+				</h4>
+				<div class="text-lg" x-show="selected == {{ i }}" {% unless i == 1 %}x-cloak{% endunless %} x-collapse>
+					{{ row.description }}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div>
+		{% assign i = 0 %}
+		{% for row in content.rows %}
+			{% assign i = i | plus: 1 %}
+			<div x-show="selected == {{ i }}" {% unless i == 1 %}x-cloak{% endunless %} x-collapse>
+				{% bookshop "helpers/image" image: row.image alt: row.title responsive: true classes: '' %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="md:hidden {{ container_name }}">
+	{% for row in content.rows %}
+		<div class="text-center">
+			{% bookshop "helpers/image" image: row.image alt: row.title responsive: true classes: 'mt-16 first:mt-0 mb-6 mx-auto' %}
+		</div>
+		<h4 class="text-center font-bold text-2xl mb-1">
+			<a>{{ row.title }}</a>
+		</h4>
+		<div class="text-center">
+			{{ row.description }}
+		</div>
+	{% endfor %}
+</div>

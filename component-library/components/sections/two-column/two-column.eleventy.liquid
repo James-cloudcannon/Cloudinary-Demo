@@ -1,0 +1,55 @@
+{% assign classes = "" %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign column_desktop_styles = "" | render_columns: styles, 'desktop' %}
+{% assign column_tablet_styles = "" | render_columns: styles, 'tablet' %}
+{% assign column_mobile_styles = "" | render_columns: styles, 'mobile' %}
+
+{% assign left_container_name = "left-column" | UUID %}
+{% assign right_container_name = "right-column" | UUID %}
+
+<style>
+@media (min-width: 1280px) {
+  .{{ left_container_name}} {
+    {{ column_desktop_styles.left | render_vertical_block_alignment: styles, 'desktop' }}
+  }
+  .{{ right_container_name}} {
+    {{ column_desktop_styles.right | render_vertical_block_alignment: styles, 'desktop' }}
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .{{ left_container_name}} {
+    {{ column_tablet_styles.left | render_vertical_block_alignment: styles, 'tablet' }}
+  }
+  .{{ right_container_name}} {
+    {{ column_tablet_styles.right | render_vertical_block_alignment: styles, 'tablet' }}
+  }
+}
+
+@media (max-width: 767px) {
+  .{{ left_container_name}} {
+    {{ column_mobile_styles.left | render_vertical_block_alignment: styles, 'mobile' }}
+  }
+  .{{ right_container_name}} {
+    {{ column_mobile_styles.right | render_vertical_block_alignment: styles, 'mobile' }}
+  }
+}
+</style>
+
+<div class="flex relative flex-wrap">
+  <div class="{{ left_container_name }}{% if styles.left_background_image.active %} bg-[url('{{ styles.left_background_image.image_path }}')] bg-no-repeat bg-top bg-cover{% endif %}">
+    {% for component in content.left.blocks %}
+      {% bookshop "{{component._bookshop_name}}" bind: component %}
+    {% endfor %}
+  </div>
+
+  <div class="{{ right_container_name }}{% if styles.right_background_image.active %} bg-[url('{{ styles.right_background_image.image_path }}')] bg-no-repeat bg-top bg-cover{% endif %}">
+    {% for component in content.right.blocks %}
+      {% bookshop "{{component._bookshop_name}}" bind: component %}
+    {% endfor %}
+  </div>
+</div>

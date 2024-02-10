@@ -1,0 +1,68 @@
+{% assign tr_classes = '' %}
+{% assign td_before = 'before:absolute before:pointer-events-none before:top-0 before:left-0 before:border-b before:border-b-gray-200 before:w-full before:h-full' %}
+{% assign td_classes = 'py-4 relative text-lg lg:text-xl' %}
+{% assign total_feature_index = features | size | minus: 1 %}
+{% assign j = 0 %}
+
+{% for f in features %}
+	{% assign last = false %}
+	{% if j == total_feature_index %}
+		{% assign last = true %}
+	{% endif %}
+
+	{% assign expand = false %}
+	{% assign sub_feature_size = f.sub_features | size %}
+	{% assign sub_feature_last_index = sub_feature_size | minus: 1 %}
+
+	{% if sub_feature_size > 0 %}
+		{% assign expand = true %}
+	{% endif %}
+
+	{% if expand %}
+		<tbody x-data="{ open: false }">
+	{% endif %}
+	<tr class="{{ tr_classes }}">
+		<td @click="open=!open"
+			class="{{ first_td_classes }} {% unless last %}{{ td_before }}{% endunless %} {{ td_classes }} pr-3 {% if expand %}cursor-pointer{% endif %}">
+			<div class="flex justify-between items-center">
+				<span class="flex items-center">
+					{% if expand %}
+						<span :class="open ? 'rotate-90' : ''" class="w-[20px] h-[20px] transition">{{ '/src/images/icons/solid/chevron-right.svg' | svgContents: 'stroke-gray-800' }}</span>
+					{% endif %}
+					<span class="{% if expand %}ml-1{% else %}ml-[25px]{% endif %}">{{ f.name }}</span>
+				</span>
+				<span class="w-[25px] h-[25px] relative top-[2px] shrink-0 grow-0 group flex flex-col items-center cursor-pointer">
+					{{ '/src/images/icons/outline/information-circle.svg' | svgContents: 'stroke-gray-400' }}
+					<div class="absolute bottom-1 flex-col items-center hidden mb-6 group-hover:flex w-[200px]">
+						<span class="relative z-10 p-2 text-xs rounded leading-none text-white whitespace-no-wrap bg-gray-800 shadow-lg">
+							{{ f.description }}
+						</span>
+						<div class="w-3 h-3 -mt-2 rotate-45 bg-gray-800"></div>
+					</div>
+				</span>
+			</div>
+		</td>
+		
+		{% assign i = 0 %}
+		{% for allocation in f.plan_allocation %}
+			<td class="{{ base_classes }} {{ row_classes[i] }} {% unless last %}{{ td_before }}{% endunless %} {{ td_classes }}">
+				<div class="flex justify-center text-center">
+					{% if allocation == 'yes' %}
+						{{ '/src/images/icons/outline/check-circle.svg' | svgContents: 'stroke-green-600 w-8 h-8' }}
+					{% elsif allocation == 'no' %}
+						{{ '/src/images/icons/outline/x-circle.svg' | svgContents: 'stroke-red-600 w-8 h-8' }}
+					{% else %}
+						{{ allocation }}
+					{% endif %}
+				</div>
+			</td>
+			{% assign i = i | plus: 1 %}
+		{% endfor %}
+	</tr>
+
+	{% if expand %}
+	{% bookshop 'pricing/sub_features' sub_features:f.sub_features first_td_classes:first_td_classes base_classes:base_classes row_classes:row_classes sub_feature_last_index:sub_feature_last_index %}
+		</tbody>
+	{% endif %}
+	{% assign j = j | plus: 1 %}
+{% endfor %}

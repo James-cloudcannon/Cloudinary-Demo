@@ -1,0 +1,48 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+{% assign buttonHolderClasses = styles.extra_classes %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_justify: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_justify: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_justify: styles, 'mobile' %}
+
+{% assign container_name = "button-holder" | UUID %}
+
+<style>
+  @media(min-width: 1280px) {
+    .{{ container_name}}{
+      {{ desktop_styles }}
+    }
+  }
+
+  @media(min-width: 768px) and (max-width: 1279px) {
+    .{{ container_name}}{
+      {{ tablet_styles }}
+    }
+  }
+
+  @media(max-width: 767px) {
+    .{{ container_name}}{
+      {{ mobile_styles }}
+    }
+    .{{ container_name}} > * {
+      flex-basis: 100%;
+    }
+    .{{ container_name}} a {
+      display: block;
+    }
+  }
+</style>
+
+<div class="flex flex-wrap items-center gap-2 {{ container_name }}">
+  {% for component in content.button_blocks %}
+    <div{% if buttonHolderClasses %} class="{{ buttonHolderClasses }}"{% endif %}>
+      {% bookshop "{{component._bookshop_name}}" bind: component %}
+    </div>
+  {% endfor %}
+</div>

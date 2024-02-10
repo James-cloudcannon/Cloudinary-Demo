@@ -1,0 +1,54 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "small-quote" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 {{ container_name }}">
+	{% for cs_quote in content.quotes %}
+		{% assign quote = collections.case-study-quote | where: "data.uuid", cs_quote.case_study_quote | first %}
+		{% if quote %}
+			{% assign person = collections.case-study-people | where: "data.uuid", quote.data.case_study_person | first %}
+			{% if person %}
+				{% assign case_study = collections.case-studies | where: "data.uuid", person.data.case_study | first %}
+			{% endif %}
+		{% endif %}
+
+		{% if quote and person and case_study %}
+			<div class="relative bg-white p-3 border-2 border-carbon">
+				{% bookshop 'case-studies/head' case_study:case_study %}
+
+				<div class="text-xl py-3">
+					{{ quote.data.quote }}
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+
+</div>
+

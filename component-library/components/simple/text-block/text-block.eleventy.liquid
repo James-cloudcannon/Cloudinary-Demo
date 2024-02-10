@@ -1,0 +1,54 @@
+{% assign classes = "prose prose-lg prose-ul:list-outside prose-li:font-medium prose-p:font-medium prose-li:marker:text-carbon" %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_text_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_text_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_text_alignment: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_text_block_text_size: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_text_block_text_size: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_text_block_text_size: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_block_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_block_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_block_alignment: styles, 'mobile' %}
+
+{% case styles.width %}
+{% when "medium" %}
+	{% assign classes = classes | append: " max-w-screen-md" %}
+{% when "large" %}
+	{% assign classes = classes | append: " max-w-screen-lg" %}
+{% else %}
+	{% assign classes = classes | append: " max-w-none" %}
+{% endcase %}
+
+{% assign container_name = "text-block" | UUID %}
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+<div class="{{ classes }} {{ container_name }}" style="color: inherit;">
+	{{ content.text_markdown | markdownify }}
+</div>

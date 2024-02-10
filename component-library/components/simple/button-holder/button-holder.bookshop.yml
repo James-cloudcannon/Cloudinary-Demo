@@ -1,0 +1,75 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Button Holder"
+  description: "A container for buttons"
+  icon: open_in_browser
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    button_blocks: []
+  styles:
+    desktop:
+      margin:
+        top: 0
+        bottom: 0
+      justify:
+        align: center
+    tablet:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      justify:
+        active: false
+        align: center
+    mobile:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      justify:
+        active: false
+        align: center
+    extra_classes:
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  active:
+    comment: These values won't be used unless active is enabled.
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  justify:
+    comments: How the buttons are distributed in the component
+  margin:
+    comment: Adjust the spacing between the button holder and other components. Can be negative for overlapping.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number
+  align:
+    comment: How the buttons are aligned
+    type: select
+    options:
+      values:
+        - start
+        - end
+        - center
+        - between
+        - around
+        - evenly
+  extra_classes:
+    comment: Special circumstances. Allows you to add a class to a button (You probably don't need this).

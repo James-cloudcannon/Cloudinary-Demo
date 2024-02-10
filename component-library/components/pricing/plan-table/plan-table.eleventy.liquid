@@ -1,0 +1,163 @@
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+
+{% assign container_name = "plan-table" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+
+{% assign base_classes = 'border-l-2 border-r-2 border-carbon bg-white relative' %}
+{% assign row_classes = "" | split: ',' %}
+{% assign shift = 0 %}
+{% assign total_columns = content.plan_count | plus: 1 %}
+{% assign overlap = 20 %}
+
+{% for num in (1..content.plan_count) %}
+	{% assign p = content.plan_count | minus: num | times: overlap %}
+	
+	{% assign r = 'left-[' | append: p | append: 'px]' %}
+	{% if num == 1 %}
+		{% assign shift = p %}
+	{% endif %}
+
+
+	
+	{% if num == content.plan_count %} 
+		{% assign r = r | append: ' px-6' %}
+		{% assign plus_overlap = 0 %}
+	{% else %}
+		{% assign r = r | append: ' pl-6 pr-10' %}
+		{% assign r = r | append: ' w-[25.5%]' %}
+	{% endif %}
+
+  {% assign row_classes = row_classes | push: r %}
+{% endfor %}
+
+{% assign first_td_classes = 'relative left-[' | append: shift | append: 'px]' %}
+
+<div class="{{ container_name }}">
+	<table class="w-full border-separate table-fixed border-spacing-y-0 w-[calc(100%+{{ shift }}px)] translate-x-[-{{ shift }}px] hidden md:block">
+		<tr>
+			<td width="200" class="{{ first_td_classes }} md:w-[200px] lg:w-[250px] xl:w-[300px]"></td>
+			
+			{% assign i = 0 %}
+			{% for name in content.names %}
+				<td class="{{ base_classes }} {{ row_classes[i] }} border-t-2 rounded-t-xl pb-5 text-xl font-bold pt-8">{{ name }}</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+
+		<tr>
+			<td><div class="{{ first_td_classes }}"></td>
+			
+			{% assign i = 0 %}
+			{% for price in content.prices %}
+				<td class="{{ base_classes }} {{ row_classes[i] }}">
+					{% assign priced_plan = price | is_integer %}
+					{% if priced_plan %}
+						{% bookshop 'pricing/price' price:price description:'/ month (USD)' %}
+					{% else %}
+						<div class="font-bold mb-6 text-3xl">{{ price }}</div>
+					{% endif %}
+				</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+
+		<tr>
+			<td><div class="{{ first_td_classes }}"></td>
+			{% assign i = 0 %}
+			{% for description in content.descriptions %}
+				<td class="{{ base_classes }} {{ row_classes[i] }} pt-3 pb-6">
+					{{ description }}
+				</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+
+		<tr>
+			<td class="{{ first_td_classes }}"></td>
+			
+			{% assign i = 0 %}
+			{% for price in content.prices %}
+				<td class="{{ base_classes }} {{ row_classes[i] }} pt-3 pb-6">
+					{% assign style = 'outline' %}
+					{% if i == 0 %}
+						{% assign style = 'normal' %}
+					{% endif %}
+					
+					{% if price | is_integer %}
+						{% assign text = 'Start 14-day trial' %}
+					{% else %}
+						{% assign text = 'Book a call with us' %}
+					{% endif %}
+					{% bookshop 'helpers/button' text:text size:'normal' style:style extra_classes:'w-full' link: content.links[i] %}
+				</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+
+		<tr>
+			<td class="font-bold text-2xl {{ first_td_classes }} pb-3">Features</td>
+			
+			{% assign i = 0 %}
+			{% for num in (1..content.plan_count) %}
+				<td class="{{ base_classes }} {{ row_classes[i] }}">
+				</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+
+		{% bookshop 'pricing/features' features:content.features first_td_classes:first_td_classes base_classes:base_classes row_classes:row_classes %}
+
+		<tr>
+			<td class="{{ first_td_classes }}"></td>
+			
+			{% assign i = 0 %}
+			{% for price in content.prices %}
+				<td class="{{ base_classes }} {{ row_classes[i] }} pt-16 pb-8 border-b-2 rounded-b-xl">
+					{% assign style = 'outline' %}
+					{% if i == 0 %}
+						{% assign style = 'normal' %}
+					{% endif %}
+					
+					{% if price | is_integer %}
+						{% assign text = 'Start 14-day trial' %}
+					{% else %}
+						{% assign text = 'Book a call with us' %}
+					{% endif %}
+					{% bookshop 'helpers/button' text:text size:'normal' style:style extra_classes:'w-full' link: content.links[i] %}
+				</td>
+				{% assign i = i | plus: 1 %}
+			{% endfor %}
+		</tr>
+	</table>
+
+	{% bookshop 'pricing/mobile-table' content:content %}
+
+</div>

@@ -1,0 +1,50 @@
+{% case icon_color %}
+{% when 'purple-dark' %} 
+	{% assign foreground = '#cd7eff' %}
+{% when 'purple' %}
+	{% assign foreground = '#5112ad' %}
+{% when 'violet-dark' %} 
+	{% assign foreground = '#c847ff' %}
+{% when 'violet' %}
+	{% assign foreground = '#b12cc8' %}
+{% when 'blue-dark' %} 
+	{% assign foreground = '#007cff' %}
+{% when 'blue' %}
+	{% assign foreground = '#004684' %}
+{% when 'orange-dark' %} 
+	{% assign foreground = '#f09537' %}
+{% when 'orange' %}
+	{% assign foreground = '#ff6838' %}
+{% when 'yellow-dark' %}
+	{% assign foreground = '#f9f846' %}
+{% when 'yellow' %}
+	{% assign foreground = '#ffd627' %}
+{% when 'green-dark' %}
+	{% assign foreground = '#46ee8f' %}
+{% when 'green' %}
+	{% assign foreground = '#37963c' %}
+{% when 'red-dark' %}
+	{% assign foreground = '#ff6565' %}
+{% when 'red' %}
+	{% assign foreground = '#f30000' %}
+{% when 'pink-dark' %}
+	{% assign foreground = '#fbc7c7' %}
+{% when 'pink' %}
+	{% assign foreground = '#f16462' %}
+{% when 'teal-dark' %}
+	{% assign foreground = '#29d59f' %}
+{% when 'teal' %}
+	{% assign foreground = '#23e1a5' %}
+{% when 'silver-dark' %}
+	{% assign foreground = '#e3e4e6' %}
+{% endcase %}
+
+{% if foreground %}
+	{% if icon_path contains 'solid' %}
+		{% assign svg_styles = svg_styles | append: ' fill-[' | append: foreground | append: ']' %}
+	{% else %}
+		{% assign svg_styles = svg_styles | append: ' stroke-[' | append: foreground | append: ']' %}
+	{% endif %}
+{% endif %}
+
+{{ '/src/images/icons/' | append: icon_path | append: '.svg' | svgContents: svg_styles }}

@@ -1,0 +1,66 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "steps" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }} max-w-[800px] mx-auto">
+	{% assign count = 0 %}
+	<div class="md:grid grid-cols-2 gap-4 gap-y-16">
+		{% for step in content.steps %}
+			{% assign count = count | plus: 1 %}
+			<div class="flex items-center">
+				<div class="flex">
+					<div class="mr-2">
+						<div class="inline-block font-bold bg-white text-carbon border-gray-900 border-2 rounded-full text-center w-8 h-8 pt-[2px] relative top-[3px]">{{ count }}</div>
+					</div>
+					<div>
+						<h3 class="text-2xl font-bold mb-3">{{ step.title }}</h3>
+						<div class="text-lg prose">
+							{{ step.description | markdownify }}
+
+							{% if step.link.url %}
+								<p>
+									<span class="inline-block w-[20px] h-[20px] grow-0 shrink-0 mr-2 relative top-[5px]">
+										{% bookshop 'helpers/icon' icon_color: step.link.icon_color icon_path: step.link.icon_path %}
+									</span>
+									<a href="{{ step.link.url }}" target="_blank" class="underline">{{ step.link.text }}</a>
+								</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-right">
+				<div class="max-h-[343px] my-10 md:my-0">
+					{% assign alt = 'step ' | append: count | append: ' to set up CloudCannon' %}
+					{% bookshop "helpers/image" image: step.image alt: content.alt responsive: true classes: 'w-full' %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>

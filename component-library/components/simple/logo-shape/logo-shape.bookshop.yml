@@ -1,0 +1,170 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - pizazz
+  label: "Logo Shape"
+  description: A logo that goes in a logo box
+  icon: magic_button
+  tags: []
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    alt:
+    image:
+  styles:
+    shape: rectangle
+    desktop:
+      visibility:
+        hide: false
+      logo_transform:
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      margin:
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      position:
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+      transform:
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+    tablet:
+      visibility:
+        active: false
+        hide: false
+      logo_transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      margin:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      position:
+        active: false
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+    mobile:
+      visibility:
+        active: false
+        hide: false
+      logo_transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      margin:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      padding:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      position:
+        active: false
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  image:
+    type: url
+    comment: The path to this logo
+  alt:
+    comment: Used for accessibility
+  logo:
+    comment: Adjustments to the logo itself
+  transform:
+    comment: Different methods to change how this component or image displays
+  scale:
+    comment: Increase or decrease the size of the logo. 1.0 is the default scale
+    type: number
+  translate_x:
+    comment: Shift the logo horizontally
+    type: number
+  translate_y:
+    comment: Shift the logo vertically
+    type: number
+  rotate:
+    comment: Rotate the logo
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  skew:
+    comment: Skew the logo
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  margin:
+    comment: Adjust the spacing between this container and others. Can be negative for overlapping.
+  padding:
+    comment: Adjust the spacing inside this container.
+  position: 
+    comment: A % number of where the logo is positioned in the box. 0-100%. Can only set one of top or bottom along with one of left or right (setting a top and bottom will only set top).
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number

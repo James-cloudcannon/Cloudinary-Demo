@@ -1,0 +1,24 @@
+{% if series != nil %}
+	<div class="mx-auto border-y border-gray-300 py-2">
+		<h4 class="text-xl mb-2">Articles in this series</h4>
+		<p class="uppercase text-gray-400 mb-3 text-base">{{ series }}</p>
+		{% assign blog_series = collections.posts | where: 'data.series', series | sort: 'date' %} 
+		<ol class="list-decimal pl-4">
+			{% for item in blog_series %}
+			<li class=" text-gray-700 pb-2 last:pb0">
+				{% if item.url != page.url %}
+					<a href="{{ item.url }}" class="text-cloudinary hover:text-cloudinary-hover hover:underline">
+				{% else %}
+					<span class="italic">
+				{% endif %}
+					{{ item.data.title }}
+				{% if item.url != page.url %}
+					</a>
+				{% else %}
+					</span>
+				{% endif %}
+				</li>
+			{% endfor %}
+		</ol>
+	</div>
+{% endif %}

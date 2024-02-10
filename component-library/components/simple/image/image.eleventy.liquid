@@ -1,0 +1,75 @@
+{% assign classes = "" %}
+{% assign outer_classes = "" %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+
+{% assign desktop_styles = desktop_styles | render_transform: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_transform: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_transform: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_block_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_block_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_block_alignment: styles, 'mobile' %}
+
+{% if styles.desktop.visibility %}
+	{% assign desktop_styles = desktop_styles | render_visibility: styles, 'desktop' %}
+	{% assign tablet_styles = tablet_styles | render_visibility: styles, 'tablet' %}
+	{% assign mobile_styles = mobile_styles | render_visibility: styles, 'mobile' %}
+{% endif %}
+
+{% if styles.ontop %}
+	{% assign classes = classes | append: " z-10" %}
+{% endif %}
+
+{% if styles.rounded %}
+	{% assign outer_classes = outer_classes | append: " rounded-2xl" %}
+	{% assign classes = classes | append: " rounded-2xl" %}
+{% endif %}
+
+{% if styles.border %}
+	{% assign outer_classes = outer_classes | append: " border-2 border-carbon p-1" %}
+{% endif %}
+
+{% case styles.width %}
+{% when 'tight' %}
+	{% assign outer_classes = outer_classes | append: " max-w-screen-md mx-auto" %}
+{% endcase %}
+
+
+{% assign container_name = "image" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }} {{ outer_classes }}">
+	{% assign c = classes | append: ' relative w-full' %}
+	{% bookshop "helpers/image" image: content.image alt: content.alt responsive: true classes: c width: styles.pixel_width max_width: styles.max_width %}
+</div>

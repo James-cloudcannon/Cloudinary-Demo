@@ -1,0 +1,26 @@
+<div class="border-t border-gray-200 mt-8 md:flex pt-2">
+	<p class="text-gray-600">
+		© {{ 'now' | date: "%Y" }}
+		{{ site.site_name }}. All rights reserved.
+	</p>
+
+	<ul class="flex md:ml-4 flex-1 flex-wrap my-5 md:my-0">
+		{% for item in footer-links %}
+			<li class="group">
+				<a class="group-first:pl-0 px-2 border-r text-gray-600 hover:text-carbon group-last:border-0" href="{{ item.url }}" 
+				{% if item.open_in_new_tab %}
+					target="_blank"
+					rel="noopener"
+				{% endif %}>
+					{{ item.title }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+
+
+	{% if site.footer-socials %}
+		{% include 'partials/footer/_socials.html' %}
+	{% endif %}
+
+</div>

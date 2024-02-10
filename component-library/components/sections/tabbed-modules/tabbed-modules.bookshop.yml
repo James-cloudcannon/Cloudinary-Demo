@@ -1,0 +1,24 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Tabbed-modules"
+  description: Tabbed content toggling text and image blocks
+  icon: vertical_split
+  tags: ['container']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  background_color: "#ffffff" 
+  content:
+    tabs:
+      - title: "Tab 1"
+        blocks: []
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  background_color: 
+    type: color

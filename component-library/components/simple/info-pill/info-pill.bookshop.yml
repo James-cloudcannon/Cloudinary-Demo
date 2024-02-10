@@ -1,0 +1,89 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Info Pill"
+  description: "A small styled span of text"
+  icon: more
+  tags: []
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    text: Info
+  styles:
+    background-color: "grey"
+    border-radius: "full"
+    desktop:
+      text_sizing:
+        text_size: normal
+      position:
+        top: 0
+        right: 0
+      padding:
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+    tablet:
+      text_sizing: 
+        active: true
+        text_size: normal
+      position:
+        active: false
+        top: 0
+        right: 0
+      padding:
+        active: false
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+    mobile:
+      text_sizing: 
+        active: true
+        text_size: small
+      position:
+        active: false
+        top: 0
+        right: 0
+      padding:
+        active: false
+        top: 0
+        right: 0
+    extra_classes:
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  text:
+    comment: The text for the pill
+  text_size:
+    comment: The size of the text.
+    type: select
+    options:
+      values:
+        - normal
+        - big
+        - small
+  background-color:
+    comment: The background color of the pill.
+    type: select
+    options:
+      values:
+        - grey
+        - white
+        - "cloudinary-blue"
+        - carbon
+  border-radius:
+    comment: The border radius of the pill.
+    type: select
+    options:
+      values:
+        - full
+        - half
+        - none
+  extra_classes:
+    comment: Special circumstances. Allows you to add a class to a button (You probably don't need this).

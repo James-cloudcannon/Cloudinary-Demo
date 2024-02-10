@@ -1,0 +1,240 @@
+<!-- custom checkbox styling -->
+<style>
+    .custom-checkbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px;
+        border: 2px solid #034AD8;
+        border-radius: 4px;
+        position: relative;
+        cursor: pointer;     
+    }
+    
+    input[type="checkbox"]:checked + .custom-checkbox {
+        background-color: #034AD8;
+        border-color: #034AD8;
+    }
+    
+    input[type="checkbox"]:checked + .custom-checkbox::after {
+        content: '\2713';
+        position: absolute;
+        color: #fff;
+        font-size: 14px;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        width: 100%; 
+        height: 100%; 
+    }
+    
+    [x-cloak] {
+        display: none;
+    }
+    
+</style>
+
+{% assign filter_type = filters %}
+{% assign collection = collections[collectionName] %}
+
+<div x-data="filterComponent" x-init="init(); initialisePagefind();" class="relative w-full light-text">
+
+    <!-- Dropdowns -->
+    <div class="flex flex-col lg:flex-row gap-4 w-full">
+        {% for filter in filter_type %}
+            <div class="relative inline-block w-full lg:w-auto">
+                <!-- Button -->
+                <button
+                  @click.prevent="toggleDropdown('{{ forloop.index }}')" 
+                  class="z-10 border-2 border-carbon-200 rounded-lg px-4 py-3 bg-white w-full lg:w-[200px] flex justify-between items-center relative"
+                  :class="{                   
+                      'border-carbon-200': !open && (!isMobile || filters['{{filter.id}}']?.length === 0),
+                      'opacity-50': usesPagefind && loading
+                  }"
+                  data-index="{{ forloop.index }}"
+                  aria-haspopup="true" 
+                  :aria-expanded="open && show === '{{ forloop.index }}'"
+                  aria-label="Show filters for {{ filter.name }}"
+                  :disabled="usesPagefind && loading"
+                  tabindex="0"
+                >
+                    <span class="inline-block" x-text="generateFilterButtonLabelBasedOnSelectionAndDevice('{{ filter.id }}', '{{ filter.name }}')"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current inline-block w-3 h-3 fill-black text-black transform transition duration-150" :class="{ 'rotate-90': show === '{{ forloop.index }}' }">
+                        <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="absolute text-xs top-0 right-0 w-[17px] h-[17px] text-white bg-cloudinary rounded-full" x-text="filters['{{ filter.id }}'].length" x-show="isMobile && filters['{{ filter.id }}']?.length > 0" style="transform: translate(50%, -50%);"></span>
+                </button>
+
+                <!-- Dropdown -->
+    
+                <div
+                  x-cloak 
+                  x-show.transition="show === '{{ forloop.index }}'" 
+                  @click.away="if(show === '{{ forloop.index }}') show = false" 
+                  @keydown.escape="if(show === '{{ forloop.index }}') show = false" role="menu"  
+                  class="absolute top-full z-20 mt-2 w-full md:w-[200px] shadow-menu rounded-lg px-4 py-4 gap-y-4 whitespace-nowrap bg-white"
+                >
+                    {% assign filter_key = filter.id %}
+                    {% assign item_collection = collection %}
+                    {% assign filter_targets = "" | split: "," %}
+
+                    {% comment %}
+                        Get all the categories from the data files
+                    {% endcomment %}
+                    {% for f in filter-tags %}
+                        {% assign filter_name = f[0] | strip %}
+                        {% if filter_key == "category" %}
+                            {% if collectionName == "templates" %}
+                                {% if filter_name == "filter-template-category-tags" %}
+                                    {% assign filter_targets = f[1] %}
+                                {% endif %}
+                            {% elsif collectionName == "posts" %}
+                                {% if filter_name == "filter-blog-category-tags" %}
+                                    {% assign filter_targets = f[1] %}
+                                {% endif %}
+                            {% endif %}
+                        {% elsif filter_key == "framework" %}
+                            {% if filter_name == "filter-framework-tags" %}
+                                {% assign filter_targets = f[1] %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}     
+                    
+                    {% comment %}
+                        Get all categories from the collection files
+                    {% endcomment %}
+                    {% assign categories_from_collection = "" | split: "," %}
+                    {% for c in collection %}
+                        {% if filter_key == "category" %}
+                            {% for cat in c.data.categories %}
+                                {% unless categories_from_collection contains cat %}
+                                    {% assign categories_from_collection = categories_from_collection | push: cat %}
+                                {% endunless %}
+                            {% endfor %}
+                        {% elsif filter_key == "framework" %}
+                            {% for cat in c.data.ssg_frameworks %}
+                                {% unless categories_from_collection contains cat %}
+                                    {% assign categories_from_collection = categories_from_collection | push: cat %}
+                                {% endunless %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% comment %}
+                        Finally, construct the final list of categories to be used
+                    {% endcomment %}
+                    {% assign final_categories_list = "" | split: "," %}
+
+                    {% for ft in filter_targets %}
+                        {% if categories_from_collection contains ft %}
+                            {% assign final_categories_list = final_categories_list | push: ft %}
+                        {% endif %}
+                    {% endfor %}
+    
+                    {% for target in final_categories_list %}
+                        <div 
+                          class="flex items-center h-[42px]" 
+                          x-ref="dropdown" 
+                          @click="toggleCheckboxEvent($event, '{{ target }}', '{{ filter_key }}')" 
+                          role="none" @keydown.space.prevent="toggleCheckboxEvent($event, '{{ target }}', '{{ filter_key }}')" 
+                          @keydown.enter.prevent="toggleCheckboxEvent($event, '{{ target }}', '{{ filter_key }}')" 
+                          tabindex="0"
+                        >
+                            <input 
+                              type="checkbox" 
+                              id="checkbox_{{ target }}" 
+                              name="type[]" 
+                              value="{{ target }}" 
+                              class="hidden" 
+                              @change="addOrRemoveFilterOptionAndUpdateRenderedItems($event.target.value, $event.target.checked, '{{ filter_key }}')" 
+                              aria-labelledby="label_{{ target }}" 
+                            >
+                            <label for="checkbox_{{ target }}" class="custom-checkbox inline-block mr-2 cursor-pointer" role="menuitemcheckbox"></label>
+                            {% if filter_key == "framework" %}
+                                <img src="/images/icons/ssgs/{{ target }}.svg" width="16" height="16" alt="{{ target.ssg_name }}" class="mr-1 inline-block cursor-pointer"/>
+                            {% endif %}
+                            <span class="cursor-pointer">{{ target | capitalize | strip }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        
+        <!-- Clear filters button -->
+        <button 
+          x-show="selectedOptions.reduce((x,[k,v]) => x + v.length, 0) > 0"
+          @click="removeAllOptionsFromFilter()" 
+          class="hidden lg:inline-block text-cloudinary font-bold text-right py-2 px-3 transition hover:bg-[#F0F5FF] hover:rounded-lg" 
+          aria-label="Clear all filters" 
+          tabindex="0"
+        >
+            Clear filters
+        </button>
+    </div>
+     <!-- Selected Options -->
+     <div 
+        class="mt-8 gap-2 flex-wrap hidden md:flex" 
+        x-show="selectedOptions.length > 0 && !isMobile" 
+        x-init="$watch('selectedOptions.length', () => { if(window.innerWidth >= 768) { $el.classList.toggle('hidden', !selectedOptions.length); } })"
+        >
+        <template x-for="([k,v], idx) in selectedOptions" :key="idx">
+            <template x-for="(option, index) in v" :key="index">
+            <span class="bg-white border-2 border-comet rounded-[24px] relative flex items-center justify-between py-2 px-4 leading-none">                
+                <img x-show="k !== 'category'" x-bind:src="'/images/icons/ssgs/' + option + '.svg'" width="16" height="16" x-bind:alt="option" class="mr-2 inline-block cursor-pointer"/>
+                <span class="capitalize font-medium text-carbon leading-[12px] mr-2" x-text="option"></span> 
+                <button x-bind:aria-label="'Remove filter ' + option" @click="removeOptionFromFilter(option, index)" class="flex items-center justify-center relative top-px w-6 h-6">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L11 11M11 1L1 11" stroke="#393939" stroke-width="2"/>
+                    </svg>
+                </button>
+            </span>
+            </template>
+        </template>
+    </div>
+
+
+
+    <!-- Skeleton loader -->
+
+
+    <!-- Pagefind post results -->
+    <div id="results" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-12 pt-8" 
+     x-show="!loading && pagefindResults.length > 0" 
+     x-cloak>
+        <template x-for="(post, index) in pagefindResults" :key="index">
+            
+            <div>
+                <a :href="post.url" class="group">
+                    <img :src="`${post.meta.blog_image}?auto=compress&auto=format&w=584&dpr=2&crop=faces&fit=crop&height=316`"
+                        :alt="post.meta.image_alt"
+                        class="transition rounded-lg group-hover:opacity-80 group-hover:scale-105 h-[250px] object-center object-cover w-full"
+                        loading="lazy"
+                        data-observer="true">
+                </a>
+                
+                <div class="text-gray-400 mt-2">
+                    <template x-for="(tag, tagIndex) in post.meta.blog_tags.split(',')" :key="tagIndex">
+                        <span>
+                            <a :href="`/blog/tags/${encodeURIComponent(tag.trim()).toLowerCase()}/`"
+                            x-text="tag.trim()"
+                            class="text-cloudinary uppercase hover:text-cloudinary-hover hover:underline transition"></a>
+                            <span x-show="tagIndex < post.meta.blog_tags.split(',').length - 1">·</span>
+                        </span>
+                    </template>
+                </div>
+                
+                <h3 class="font-bold text-2xl md:text-3xl mt-1 text-carbon">
+                    <a :href="post.url" x-text="post.meta.title" class="hover:underline"></a>
+                </h3>
+                
+                <p class="mt-3 text-gray-900" x-text="`${post.meta.blog_author} · ${new Date(post.meta.blog_date).toLocaleDateString('en-us', { day: 'numeric', month: 'short', year: 'numeric' })}`"></p>
+            </div>
+        </template>
+    </div>
+    
+
+    
+
+</div>
+
+

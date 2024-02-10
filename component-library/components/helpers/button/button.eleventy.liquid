@@ -1,0 +1,38 @@
+{% assign classes = extra_classes %}
+
+{% case size %}
+{% when 'big' %}
+	{% assign classes = classes | append: ' text-lg py-4 px-6' %}
+{% else %}
+	{% assign classes = classes | append: ' py-2 px-3' %}
+{% endcase %}
+
+{% case style %}
+{% when "outline" %}
+	{% assign classes = classes | append: ' text-cloudinary border-cloudinary hover:bg-blue-50' %}
+{% when "outline-white" %}
+	{% assign classes = classes | append: ' text-white border-white hover:bg-carbon hover:bg-opacity-10' %}
+{% when "white" %}
+	{% assign classes = classes | append: ' text-cloudinary bg-white hover:bg-gray-100' %}
+{% when "red" %}
+	{% assign classes = classes | append: ' text-white uppercase bg-cloudinary-red border-coloudinary_red hover:bg:cloudinary-red-hover' %}
+{% when "normal" %}
+	{% assign classes = classes | append: ' text-white bg-cloudinary border-cloudinary hover:bg-cloudinary-hover' %}
+{% when "plain-text" %}
+	{% assign classes = classes | append: ' text-cloudinary-btn-blue hover:underline border-none border-0' %}
+{% endcase %}
+
+
+{% if type == 'input' %}
+	<input type="submit" 
+{% else %}
+	<a href="{{ link }}"
+{% endif %}
+
+class="border-2 cursor-pointer text-center rounded-lg font-bold transition hover:scale-105 inline-block {{ classes }}"
+
+{% if type == 'input' %}
+	value="{{ text }}" /> 
+{% else %}
+	>{{ text }}</a>
+{% endif %}

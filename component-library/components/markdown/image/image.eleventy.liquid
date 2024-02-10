@@ -1,0 +1,6 @@
+{% capture image_tag %}{% bookshop "helpers/image" image: src alt: alt responsive: true classes: classes %}{% endcapture %}
+{% assign classes = "" %}
+{% if extend %}
+	{% assign classes = "w-full max-h-[700px] object-cover object-center" %}
+{% endif %}
+<div class="relative {% if extend %}-mx-36{% endif %} {% if border %} border-2 {% endif %}">{{ image_tag | strip_newlines }}</div>

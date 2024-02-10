@@ -1,0 +1,1141 @@
+source: src
+collections_config:
+  posts:
+    path: collections/posts
+    output: true
+    filter:
+      exclude:
+        - posts.json
+    description: Blog posts
+    icon: rss_feed
+    _editables:
+      text:
+        italic: true
+      block:
+        format: p h3
+        image_size_attributes: true
+        redo: true
+        undo: true
+      content:
+        blockquote: true
+        bold: true
+        bulletedlist: true
+        center: center-text
+        code: true
+        format: p h1 h2 h3 h4 h5 h6
+        horizontalrule: true
+        image: true
+        image_size_attributes: false
+        italic: true
+        link: true
+        numberedlist: true
+        redo: true
+        removeformat: true
+        snippet: true
+        strike: true
+        styles: /src/styles/editor.css
+        subscript: true
+        superscript: true
+        table: true
+        underline: true
+        undo: true
+    _inputs:
+      categories:
+        type: multiselect
+        options:
+          empty_type: array
+          values: data.filter-blog-category-tags
+        label: Categories filter tag
+        cascade: true
+      author:
+        type: select
+        options:
+          values: collections.authors
+          value_key: uuid
+          preview:
+            text:
+              - key: name
+        cascade: true
+      tags:
+        type: multiselect
+        options:
+          empty_type: array
+          values:
+            - Ecommerce
+            - Company
+            - Features
+            - Opinion
+            - Resources
+            - AI
+            - Business
+        cascade: true
+      breadcrumb_title:
+        type: auto
+        comment: >-
+          If not set, the page title will be used. (This will be trimmed if the
+          title contains special characters.)
+        cascade: true
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      default:
+        path: .cloudcannon/schemas/post.md
+        reorder_inputs: true
+        hide_extra_inputs: false
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+  landing-pages:
+    path: collections/landing-pages
+    output: true
+    filter:
+      exclude:
+        - tags.html
+    description: Landing pages built entirely with the page builder
+    icon: flight_land
+    _enabled_editors:
+      - visual
+      - content
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      default:
+        path: .cloudcannon/schemas/page.html
+        reorder_inputs: true
+        hide_extra_inputs: false
+        remove_empty_inputs: false
+        remove_extra_inputs: true
+        icon: notes
+  site-pages:
+    path: collections/site-pages
+    output: true
+    filter:
+      exclude:
+        - tags.html
+    description: Core pages of the site
+    icon: hub
+    _editables:
+      content:
+        blockquote: true
+        bold: true
+        bulletedlist: true
+        code: true
+        format: p h1 h2 h3 h4 h5 h6
+        horizontalrule: true
+        image: true
+        image_size_attributes: true
+        italic: true
+        link: true
+        numberedlist: true
+        redo: true
+        removeformat: true
+        snippet: true
+        strike: true
+        subscript: true
+        superscript: true
+        table: true
+        underline: true
+        undo: true
+    _inputs:
+      permalink:
+        type: auto
+        hidden: true
+        cascade: true
+      pagination:
+        type: auto
+        hidden: true
+        cascade: true
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+collections_config_override: true
+_inputs:
+  layout:
+    type: auto
+    hidden: true
+    cascade: true
+  lead_score:
+    type: number
+    cascade: true
+  weight:
+    type: number
+    cascade: true
+  uuid:
+    type: auto
+    instance_value: UUID
+    hidden: true
+    cascade: true
+  twitter_site:
+    type: twitter
+    cascade: true
+  open_graph_type:
+    type: auto
+    hidden: true
+    cascade: true
+  v_align:
+    type: select
+    options:
+      allow_empty: true
+      values:
+        - top
+        - center
+    comment: how to vertically align the columns
+    cascade: true
+  template_lists:
+    type: auto
+    comment: >-
+      These are only for changing the title and description of the 3 lists shown
+      on the Templates landing page. Please do not add/remove from this list -
+      the 3 lists are hardcoded due to filters/sort options.
+    cascade: true
+  featured_template:
+    type: select
+    options:
+      values: collections.templates
+      value_key: uuid
+      preview:
+        text:
+          - key: name
+    label: Featured template
+    cascade: true
+  search_bucket:
+    type: select
+    options:
+      allow_empty: false
+      values:
+        - name: Exclude from search
+          bucket_id: Excluded
+        - name: Company
+          bucket_id: Company
+        - name: Resources
+          bucket_id: Resources
+        - name: Blog
+          bucket_id: Blog
+      value_key: bucket_id
+    comment: What filter to apply to this page for search.
+    cascade: true
+  ssg_frameworks:
+    type: multiselect
+    options:
+      empty_type: array
+      values: data.filter-framework-tags
+    label: Framework filter tag
+    cascade: true
+  filters:
+    type: multiselect
+    options:
+      empty_type: array
+      values:
+        - framework
+        - category
+        - location
+    cascade: true
+  filter-blog-category-tags:
+    type: array
+    cascade: true
+  filter-template-category-tags:
+    type: array
+    cascade: true
+  filter-framework-tags:
+    type: array
+    cascade: true
+  filter-location-tags:
+    type: array
+    cascade: true
+  filter-blog-category-tags[*]:
+    type: text
+    cascade: true
+  filter-template-category-tags[*]:
+    type: text
+    cascade: true
+  filter-framework-tags[*]:
+    type: text
+    cascade: true
+  filter-location-tags[*]:
+    type: text
+    cascade: true
+  icon_path:
+    type: select
+    options:
+      allow_empty: true
+      values:
+        - solid/academic-cap
+        - solid/adjustments-horizontal
+        - solid/adjustments-vertical
+        - solid/archive-box-arrow-down
+        - solid/archive-box-x-mark
+        - solid/archive-box
+        - solid/arrow-down-circle
+        - solid/arrow-down-left
+        - solid/arrow-down-on-square-stack
+        - solid/arrow-down-on-square
+        - solid/arrow-down-right
+        - solid/arrow-down-tray
+        - solid/arrow-down
+        - solid/arrow-left-circle
+        - solid/arrow-left-on-rectangle
+        - solid/arrow-left
+        - solid/arrow-long-down
+        - solid/arrow-long-left
+        - solid/arrow-long-right
+        - solid/arrow-long-up
+        - solid/arrow-path-rounded-square
+        - solid/arrow-path
+        - solid/arrow-right-circle
+        - solid/arrow-right-on-rectangle
+        - solid/arrow-right
+        - solid/arrow-small-down
+        - solid/arrow-small-left
+        - solid/arrow-small-right
+        - solid/arrow-small-up
+        - solid/arrow-top-right-on-square
+        - solid/arrow-trending-down
+        - solid/arrow-trending-up
+        - solid/arrow-up-circle
+        - solid/arrow-up-left
+        - solid/arrow-up-on-square-stack
+        - solid/arrow-up-on-square
+        - solid/arrow-up-right
+        - solid/arrow-up-tray
+        - solid/arrow-up
+        - solid/arrow-uturn-down
+        - solid/arrow-uturn-left
+        - solid/arrow-uturn-right
+        - solid/arrow-uturn-up
+        - solid/arrows-pointing-in
+        - solid/arrows-pointing-out
+        - solid/arrows-right-left
+        - solid/arrows-up-down
+        - solid/at-symbol
+        - solid/backspace
+        - solid/backward
+        - solid/banknotes
+        - solid/bars-2
+        - solid/bars-3-bottom-left
+        - solid/bars-3-bottom-right
+        - solid/bars-3-center-left
+        - solid/bars-3
+        - solid/bars-4
+        - solid/bars-arrow-down
+        - solid/bars-arrow-up
+        - solid/battery-0
+        - solid/battery-100
+        - solid/battery-50
+        - solid/beaker
+        - solid/bell-alert
+        - solid/bell-slash
+        - solid/bell-snooze
+        - solid/bell
+        - solid/bolt-slash
+        - solid/bolt
+        - solid/book-open
+        - solid/bookmark-slash
+        - solid/bookmark-square
+        - solid/bookmark
+        - solid/briefcase
+        - solid/bug-ant
+        - solid/building-library
+        - solid/building-office-2
+        - solid/building-office
+        - solid/building-storefront
+        - solid/cake
+        - solid/calculator
+        - solid/calendar-days
+        - solid/calendar
+        - solid/camera
+        - solid/chart-bar-square
+        - solid/chart-bar
+        - solid/chart-pie
+        - solid/chat-bubble-bottom-center-text
+        - solid/chat-bubble-bottom-center
+        - solid/chat-bubble-left-ellipsis
+        - solid/chat-bubble-left-right
+        - solid/chat-bubble-left
+        - solid/chat-bubble-oval-left-ellipsis
+        - solid/chat-bubble-oval-left
+        - solid/check-badge
+        - solid/check-circle
+        - solid/check
+        - solid/chevron-double-down
+        - solid/chevron-double-left
+        - solid/chevron-double-right
+        - solid/chevron-double-up
+        - solid/chevron-down
+        - solid/chevron-left
+        - solid/chevron-right
+        - solid/chevron-up-down
+        - solid/chevron-up
+        - solid/circle-stack
+        - solid/clipboard-document-check
+        - solid/clipboard-document-list
+        - solid/clipboard-document
+        - solid/clipboard
+        - solid/clock
+        - solid/cloud-arrow-down
+        - solid/cloud-arrow-up
+        - solid/cloud
+        - solid/code-bracket-square
+        - solid/code-bracket
+        - solid/cog-6-tooth
+        - solid/cog-8-tooth
+        - solid/cog
+        - solid/command-line
+        - solid/computer-desktop
+        - solid/cpu-chip
+        - solid/credit-card
+        - solid/cube-transparent
+        - solid/cube
+        - solid/currency-bangladeshi
+        - solid/currency-dollar
+        - solid/currency-euro
+        - solid/currency-pound
+        - solid/currency-rupee
+        - solid/currency-yen
+        - solid/cursor-arrow-rays
+        - solid/cursor-arrow-ripple
+        - solid/device-phone-mobile
+        - solid/device-tablet
+        - solid/document-arrow-down
+        - solid/document-arrow-up
+        - solid/document-chart-bar
+        - solid/document-check
+        - solid/document-duplicate
+        - solid/document-magnifying-glass
+        - solid/document-minus
+        - solid/document-plus
+        - solid/document-text
+        - solid/document
+        - solid/ellipsis-horizontal-circle
+        - solid/ellipsis-horizontal
+        - solid/ellipsis-vertical
+        - solid/envelope-open
+        - solid/envelope
+        - solid/exclamation-circle
+        - solid/exclamation-triangle
+        - solid/eye-dropper
+        - solid/eye-slash
+        - solid/eye
+        - solid/face-frown
+        - solid/face-smile
+        - solid/film
+        - solid/finger-print
+        - solid/fire
+        - solid/flag
+        - solid/folder-arrow-down
+        - solid/folder-minus
+        - solid/folder-open
+        - solid/folder-plus
+        - solid/folder
+        - solid/forward
+        - solid/funnel
+        - solid/gif
+        - solid/gift-top
+        - solid/gift
+        - solid/globe-alt
+        - solid/globe-americas
+        - solid/globe-asia-australia
+        - solid/globe-europe-africa
+        - solid/hand-raised
+        - solid/hand-thumb-down
+        - solid/hand-thumb-up
+        - solid/hashtag
+        - solid/heart
+        - solid/home-modern
+        - solid/home
+        - solid/identification
+        - solid/inbox-arrow-down
+        - solid/inbox-stack
+        - solid/inbox
+        - solid/information-circle
+        - solid/key
+        - solid/language
+        - solid/lifebuoy
+        - solid/light-bulb
+        - solid/link
+        - solid/list-bullet
+        - solid/lock-closed
+        - solid/lock-open
+        - solid/magnifying-glass-circle
+        - solid/magnifying-glass-minus
+        - solid/magnifying-glass-plus
+        - solid/magnifying-glass
+        - solid/map-pin
+        - solid/map
+        - solid/megaphone
+        - solid/microphone
+        - solid/minus-circle
+        - solid/minus-small
+        - solid/minus
+        - solid/moon
+        - solid/musical-note
+        - solid/newspaper
+        - solid/no-symbol
+        - solid/paint-brush
+        - solid/paper-airplane
+        - solid/paper-clip
+        - solid/pause-circle
+        - solid/pause
+        - solid/pencil-square
+        - solid/pencil
+        - solid/phone-arrow-down-left
+        - solid/phone-arrow-up-right
+        - solid/phone-x-mark
+        - solid/phone
+        - solid/photo
+        - solid/play-circle
+        - solid/play-pause
+        - solid/play
+        - solid/plus-circle
+        - solid/plus-small
+        - solid/plus
+        - solid/power
+        - solid/presentation-chart-bar
+        - solid/presentation-chart-line
+        - solid/printer
+        - solid/puzzle-piece
+        - solid/qr-code
+        - solid/question-mark-circle
+        - solid/queue-list
+        - solid/radio
+        - solid/receipt-percent
+        - solid/receipt-refund
+        - solid/rectangle-group
+        - solid/rectangle-stack
+        - solid/rocket-launch
+        - solid/rss
+        - solid/scale
+        - solid/scissors
+        - solid/server-stack
+        - solid/server
+        - solid/share
+        - solid/shield-check
+        - solid/shield-exclamation
+        - solid/shopping-bag
+        - solid/shopping-cart
+        - solid/signal-slash
+        - solid/signal
+        - solid/sparkles
+        - solid/speaker-wave
+        - solid/speaker-x-mark
+        - solid/square-2-stack
+        - solid/square-3-stack-3d
+        - solid/squares-2x2
+        - solid/squares-plus
+        - solid/star
+        - solid/stop-circle
+        - solid/stop
+        - solid/sun
+        - solid/swatch
+        - solid/table-cells
+        - solid/tag
+        - solid/ticket
+        - solid/trash
+        - solid/trophy
+        - solid/truck
+        - solid/tv
+        - solid/user-circle
+        - solid/user-group
+        - solid/user-minus
+        - solid/user-plus
+        - solid/user
+        - solid/users
+        - solid/variable
+        - solid/video-camera-slash
+        - solid/video-camera
+        - solid/view-columns
+        - solid/viewfinder-circle
+        - solid/wallet
+        - solid/wifi
+        - solid/window
+        - solid/wrench-screwdriver
+        - solid/wrench
+        - solid/x-circle
+        - solid/x-mark
+        - outline/academic-cap
+        - outline/adjustments-horizontal
+        - outline/adjustments-vertical
+        - outline/archive-box-arrow-down
+        - outline/archive-box-x-mark
+        - outline/archive-box
+        - outline/arrow-down-circle
+        - outline/arrow-down-left
+        - outline/arrow-down-on-square-stack
+        - outline/arrow-down-on-square
+        - outline/arrow-down-right
+        - outline/arrow-down-tray
+        - outline/arrow-down
+        - outline/arrow-left-circle
+        - outline/arrow-left-on-rectangle
+        - outline/arrow-left
+        - outline/arrow-long-down
+        - outline/arrow-long-left
+        - outline/arrow-long-right
+        - outline/arrow-long-up
+        - outline/arrow-path-rounded-square
+        - outline/arrow-path
+        - outline/arrow-right-circle
+        - outline/arrow-right-on-rectangle
+        - outline/arrow-right
+        - outline/arrow-small-down
+        - outline/arrow-small-left
+        - outline/arrow-small-right
+        - outline/arrow-small-up
+        - outline/arrow-top-right-on-square
+        - outline/arrow-trending-down
+        - outline/arrow-trending-up
+        - outline/arrow-up-circle
+        - outline/arrow-up-left
+        - outline/arrow-up-on-square-stack
+        - outline/arrow-up-on-square
+        - outline/arrow-up-right
+        - outline/arrow-up-tray
+        - outline/arrow-up
+        - outline/arrow-uturn-down
+        - outline/arrow-uturn-left
+        - outline/arrow-uturn-right
+        - outline/arrow-uturn-up
+        - outline/arrows-pointing-in
+        - outline/arrows-pointing-out
+        - outline/arrows-right-left
+        - outline/arrows-up-down
+        - outline/at-symbol
+        - outline/backspace
+        - outline/backward
+        - outline/banknotes
+        - outline/bars-2
+        - outline/bars-3-bottom-left
+        - outline/bars-3-bottom-right
+        - outline/bars-3-center-left
+        - outline/bars-3
+        - outline/bars-4
+        - outline/bars-arrow-down
+        - outline/bars-arrow-up
+        - outline/battery-0
+        - outline/battery-100
+        - outline/battery-50
+        - outline/beaker
+        - outline/bell-alert
+        - outline/bell-slash
+        - outline/bell-snooze
+        - outline/bell
+        - outline/bolt-slash
+        - outline/bolt
+        - outline/book-open
+        - outline/bookmark-slash
+        - outline/bookmark-square
+        - outline/bookmark
+        - outline/briefcase
+        - outline/bug-ant
+        - outline/building-library
+        - outline/building-office-2
+        - outline/building-office
+        - outline/building-storefront
+        - outline/cake
+        - outline/calculator
+        - outline/calendar-days
+        - outline/calendar
+        - outline/camera
+        - outline/chart-bar-square
+        - outline/chart-bar
+        - outline/chart-pie
+        - outline/chat-bubble-bottom-center-text
+        - outline/chat-bubble-bottom-center
+        - outline/chat-bubble-left-ellipsis
+        - outline/chat-bubble-left-right
+        - outline/chat-bubble-left
+        - outline/chat-bubble-oval-left-ellipsis
+        - outline/chat-bubble-oval-left
+        - outline/check-badge
+        - outline/check-circle
+        - outline/check
+        - outline/chevron-double-down
+        - outline/chevron-double-left
+        - outline/chevron-double-right
+        - outline/chevron-double-up
+        - outline/chevron-down
+        - outline/chevron-left
+        - outline/chevron-right
+        - outline/chevron-up-down
+        - outline/chevron-up
+        - outline/circle-stack
+        - outline/clipboard-document-check
+        - outline/clipboard-document-list
+        - outline/clipboard-document
+        - outline/clipboard
+        - outline/clock
+        - outline/cloud-arrow-down
+        - outline/cloud-arrow-up
+        - outline/cloud
+        - outline/code-bracket-square
+        - outline/code-bracket
+        - outline/cog-6-tooth
+        - outline/cog-8-tooth
+        - outline/cog
+        - outline/command-line
+        - outline/computer-desktop
+        - outline/cpu-chip
+        - outline/credit-card
+        - outline/cube-transparent
+        - outline/cube
+        - outline/currency-bangladeshi
+        - outline/currency-dollar
+        - outline/currency-euro
+        - outline/currency-pound
+        - outline/currency-rupee
+        - outline/currency-yen
+        - outline/cursor-arrow-rays
+        - outline/cursor-arrow-ripple
+        - outline/device-phone-mobile
+        - outline/device-tablet
+        - outline/document-arrow-down
+        - outline/document-arrow-up
+        - outline/document-chart-bar
+        - outline/document-check
+        - outline/document-duplicate
+        - outline/document-magnifying-glass
+        - outline/document-minus
+        - outline/document-plus
+        - outline/document-text
+        - outline/document
+        - outline/ellipsis-horizontal-circle
+        - outline/ellipsis-horizontal
+        - outline/ellipsis-vertical
+        - outline/envelope-open
+        - outline/envelope
+        - outline/exclamation-circle
+        - outline/exclamation-triangle
+        - outline/eye-dropper
+        - outline/eye-slash
+        - outline/eye
+        - outline/face-frown
+        - outline/face-smile
+        - outline/film
+        - outline/finger-print
+        - outline/fire
+        - outline/flag
+        - outline/folder-arrow-down
+        - outline/folder-minus
+        - outline/folder-open
+        - outline/folder-plus
+        - outline/folder
+        - outline/forward
+        - outline/funnel
+        - outline/gif
+        - outline/gift-top
+        - outline/gift
+        - outline/globe-alt
+        - outline/globe-americas
+        - outline/globe-asia-australia
+        - outline/globe-europe-africa
+        - outline/hand-raised
+        - outline/hand-thumb-down
+        - outline/hand-thumb-up
+        - outline/hashtag
+        - outline/heart
+        - outline/home-modern
+        - outline/home
+        - outline/identification
+        - outline/inbox-arrow-down
+        - outline/inbox-stack
+        - outline/inbox
+        - outline/information-circle
+        - outline/key
+        - outline/language
+        - outline/lifebuoy
+        - outline/light-bulb
+        - outline/link
+        - outline/list-bullet
+        - outline/lock-closed
+        - outline/lock-open
+        - outline/magnifying-glass-circle
+        - outline/magnifying-glass-minus
+        - outline/magnifying-glass-mobile
+        - outline/magnifying-glass-plus
+        - outline/magnifying-glass
+        - outline/map-pin
+        - outline/map
+        - outline/megaphone
+        - outline/microphone
+        - outline/minus-circle
+        - outline/minus-small
+        - outline/minus
+        - outline/moon
+        - outline/musical-note
+        - outline/newspaper
+        - outline/no-symbol
+        - outline/paint-brush
+        - outline/paper-airplane
+        - outline/paper-clip
+        - outline/pause-circle
+        - outline/pause
+        - outline/pencil-square
+        - outline/pencil
+        - outline/phone-arrow-down-left
+        - outline/phone-arrow-up-right
+        - outline/phone-x-mark
+        - outline/phone
+        - outline/photo
+        - outline/play-circle
+        - outline/play-pause
+        - outline/play
+        - outline/plus-circle
+        - outline/plus-small
+        - outline/plus
+        - outline/power
+        - outline/presentation-chart-bar
+        - outline/presentation-chart-line
+        - outline/printer
+        - outline/puzzle-piece
+        - outline/qr-code
+        - outline/question-mark-circle
+        - outline/queue-list
+        - outline/radio
+        - outline/receipt-percent
+        - outline/receipt-refund
+        - outline/rectangle-group
+        - outline/rectangle-stack
+        - outline/rocket-launch
+        - outline/rss
+        - outline/scale
+        - outline/scissors
+        - outline/server-stack
+        - outline/server
+        - outline/share
+        - outline/shield-check
+        - outline/shield-exclamation
+        - outline/shopping-bag
+        - outline/shopping-cart
+        - outline/signal-slash
+        - outline/signal
+        - outline/sparkles
+        - outline/speaker-wave
+        - outline/speaker-x-mark
+        - outline/square-2-stack
+        - outline/square-3-stack-3d
+        - outline/squares-2x2
+        - outline/squares-plus
+        - outline/star
+        - outline/stop-circle
+        - outline/stop
+        - outline/sun
+        - outline/swatch
+        - outline/table-cells
+        - outline/tag
+        - outline/ticket
+        - outline/trash
+        - outline/trophy
+        - outline/truck
+        - outline/tv
+        - outline/user-circle
+        - outline/user-group
+        - outline/user-minus
+        - outline/user-plus
+        - outline/user
+        - outline/users
+        - outline/variable
+        - outline/video-camera-slash
+        - outline/video-camera
+        - outline/view-columns
+        - outline/viewfinder-circle
+        - outline/wallet
+        - outline/wifi
+        - outline/window
+        - outline/wrench-screwdriver
+        - outline/wrench
+        - outline/x-circle
+        - outline/x-mark
+    cascade: true
+  icon_color:
+    type: select
+    options:
+      allow_empty: true
+      values:
+        - purple-dark
+        - purple-white
+        - purple
+        - violet-dark
+        - violet-white
+        - violet
+        - blue-dark
+        - blue-white
+        - blue
+        - orange-dark
+        - orange-white
+        - orange
+        - yellow-dark
+        - yellow-white
+        - yellow
+        - green-dark
+        - green-white
+        - green
+        - red-dark
+        - red-white
+        - red
+        - pink-dark
+        - pink-white
+        - pink
+        - teal-dark
+        - teal-white
+        - teal
+        - normal
+    cascade: true
+  nav_icon_color:
+    type: select
+    options:
+      allow_empty: true
+      values:
+        - cloudinary-blue
+        - amber
+        - electric-purple
+        - emerald
+        - ruby
+        - comet
+    label: Icon Color
+    cascade: true
+  background_colour:
+    type: auto
+    options:
+      values:
+        - id: cloudinary-blue-100
+          name: CC Blue
+        - id: carbon-100
+          name: Carbon
+        - id: ruby-100
+          name: Ruby
+        - id: space-100
+          name: Space
+        - id: amber-100
+          name: Amber
+        - id: emerald-100
+          name: Emerald
+        - id: gold-100
+          name: Gold
+        - id: electric-purple-100
+          name: Electric Purple
+    comment: >-
+      Note: this is the lightest variation of each colour (10% variation); refer
+      to the Brand Guide for more details. Note: this colour won't show on
+      templates categorised as 'Starter'
+    cascade: true
+  sidebar_content_top:
+    type: markdown
+    options:
+      allow_resize: true
+      initial_height: 320
+      blockquote: false
+      bold: true
+      bulletedlist: true
+      center: align-center
+      code: true
+      copyformatting: false
+      embed: false
+      format: p h3 h4 h5 h6
+      horizontalrule: false
+      image: false
+      image_size_attributes: false
+      indent: true
+      italic: true
+      justify: align-justify
+      left: align-left
+      link: true
+      numberedlist: true
+      outdent: true
+      redo: true
+      removeformat: false
+      right: align-right
+      strike: true
+      subscript: true
+      superscript: true
+      table: false
+      underline: true
+      undo: true
+    hidden: '!starter'
+    cascade: true
+  sidebar_content_bottom:
+    type: markdown
+    options:
+      allow_resize: true
+      initial_height: 320
+      blockquote: false
+      bold: true
+      bulletedlist: true
+      center: align-center
+      code: true
+      copyformatting: false
+      embed: false
+      format: p h3 h4 h5 h6
+      horizontalrule: false
+      image: false
+      image_size_attributes: false
+      indent: true
+      italic: true
+      justify: align-justify
+      left: align-left
+      link: true
+      numberedlist: true
+      outdent: true
+      redo: true
+      removeformat: false
+      right: align-right
+      strike: true
+      subscript: true
+      superscript: true
+      table: false
+      underline: true
+      undo: true
+    hidden: '!starter'
+    cascade: true
+  starter:
+    type: checkbox
+    cascade: true
+  partner:
+    type: checkbox
+    cascade: true
+_select_data: {}
+_structures:
+  blocks:
+    style: modal
+  content_blocks:
+    style:
+  sub_navs:
+    style: select
+    values:
+      - icon: menu
+        label: Sub Nav
+        value:
+          title:
+          sub_nav:
+          sub_card:
+  sub_card:
+    style: select
+    values:
+      - icon: card
+        label: Sub Card
+        value:
+          featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+  sub_nav:
+    style: select
+    values:
+      - icon: image
+        label: Sub Nav Item
+        value:
+          name:
+          link:
+          description:
+          icon_path:
+          nav_icon_color:
+_editables: {}
+data_config:
+  filter-location-tags: false
+  filter-blog-category-tags: true
+  filter-template-category-tags: false
+  filter-framework-tags: false
+timezone: Pacific/Auckland
+_snippets_imports:
+  eleventy_liquid: true
+_snippets:
+  quote:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Quote
+    definitions:
+      component_name: markdown/quote
+      named_args:
+        - editor_key: quote
+          type: string
+  video:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Video
+    definitions:
+      component_name: markdown/video
+      named_args:
+        - editor_key: url
+          type: string
+        - editor_key: title
+          type: string
+        - editor_key: border
+          type: boolean
+  image:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Image
+    definitions:
+      component_name: markdown/image
+      named_args:
+        - editor_key: src
+          type: string
+        - editor_key: alt
+          type: string
+        - editor_key: extend
+          type: boolean
+        - editor_key: border
+          type: boolean
+  vimeo:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Vimeo
+    definitions:
+      component_name: markdown/vimeo
+      named_args:
+        - editor_key: video
+          type: string
+        - editor_key: title
+          type: string
+        - editor_key: border
+          type: boolean
+  youtube:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Youtube
+    definitions:
+      component_name: markdown/youtube
+      named_args:
+        - editor_key: title
+          type: string
+        - editor_key: id
+          type: string
+        - editor_key: extend
+          type: boolean
+        - editor_key: border
+          type: boolean
+  anchor:
+    template: eleventy_liquid_bookshop_component
+    inline: true
+    preview:
+      text: Anchor
+    definitions:
+      component_name: markdown/anchor
+      named_args:
+        - editor_key: name
+          type: string
+  tablesaw:
+    template: eleventy_liquid_bookshop_component
+    inline: false
+    preview:
+      text: Responsive Table
+    definitions:
+      component_name: markdown/tablesaw
+      named_args:
+        - editor_key: content_markdown
+          type: string
+    _inputs:
+      content_markdown:
+        type: markdown
+        options:
+          allow_resize: true
+          initial_height: 320
+          image_size_attributes: true
+          table: true
+        cascade: true

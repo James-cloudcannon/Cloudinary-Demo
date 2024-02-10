@@ -1,0 +1,101 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Text block"
+  description: Text block of content.
+  icon: description
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    text_markdown:
+  styles:
+    width: full
+    desktop:
+      text_alignment: 
+        align: left
+      text_sizing:
+        text_size: normal
+      margin:
+        top: 0
+        bottom: 0
+      block_alignment:
+        align_block: center
+    tablet:
+      text_alignment:
+        active: false
+        align: left
+      text_sizing:
+        active: false
+        text_size: normal
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      block_alignment:
+        active: false
+        align_block: left
+    mobile:
+      text_alignment:
+        active: false
+        align: left
+      text_sizing:
+        active: false
+        text_size: normal
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      block_alignment:
+        active: false
+        align_block: left
+
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  text_markdown:
+    comment: The content
+    type: markdown
+  align:
+    type: select
+    comment: The alignment of the text-block.
+    options:
+      values:
+        - left
+        - center
+        - right
+        - justify
+  align_block:
+    type: select
+    options:
+      values:
+        - left
+        - center
+  block_alignment:
+    comment: Align component within its parent
+  width:
+    comment: The width of the text block
+    type: select 
+    options:
+      values:
+        - medium
+        - large
+        - full
+  text_size:
+    comment: The size of the text
+    type: select 
+    options:
+      values:
+        - big
+        - normal
+  margin:
+    comment: Adjust the spacing between the component and other components. Can be negative for overlapping.
+  top:
+    type: number
+  bottom:
+    type: number

@@ -1,0 +1,84 @@
+{% assign outer_classes = "" %}
+{% assign inner_classes = "" %}
+
+{% assign inner_desktop_styles = "" %}
+{% assign inner_tablet_styles = "" %}
+{% assign inner_mobile_styles = "" %}
+
+{% assign outer_desktop_styles = "" %}
+{% assign outer_tablet_styles = "" %}
+{% assign outer_mobile_styles = "" %}
+
+{% assign outer_desktop_styles = outer_desktop_styles | render_transform: styles, 'desktop' %}
+{% assign outer_tablet_styles = outer_tablet_styles | render_transform: styles, 'tablet' %}
+{% assign outer_mobile_styles = outer_mobile_styles | render_transform: styles, 'mobile' %}
+
+{% assign outer_desktop_styles = outer_desktop_styles | render_position_percentage: styles, 'desktop' %}
+{% assign outer_tablet_styles = outer_tablet_styles | render_position_percentage: styles, 'tablet' %}
+{% assign outer_mobile_styles = outer_mobile_styles | render_position_percentage: styles, 'mobile' %}
+
+{% assign outer_desktop_styles = outer_desktop_styles | render_visibility: styles, 'desktop' %}
+{% assign outer_tablet_styles = outer_tablet_styles | render_visibility: styles, 'tablet' %}
+{% assign outer_mobile_styles = outer_mobile_styles | render_visibility: styles, 'mobile' %}
+
+{% assign inner_desktop_styles = inner_desktop_styles | render_margin: styles, 'desktop' %}
+{% assign inner_tablet_styles = inner_tablet_styles | render_margin: styles, 'tablet' %}
+{% assign inner_mobile_styles = inner_mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign inner_desktop_styles = inner_desktop_styles | render_padding: styles, 'desktop' %}
+{% assign inner_tablet_styles = inner_tablet_styles | render_padding: styles, 'tablet' %}
+{% assign inner_mobile_styles = inner_mobile_styles | render_padding: styles, 'mobile' %}
+
+
+{% case styles.shape %}
+{% when 'circle' %}
+	{% assign outer_classes = outer_classes | append: " before:rounded-full w-[110px] h-[110px] inline-block" %}
+	{% assign inner_classes = inner_classes | append: " rounded-full" %}
+{% else %}
+	{% assign outer_classes = outer_classes | append: " before:rounded-lg h-[72px] h-[80px] inline-block" %}
+	{% assign inner_classes = inner_classes | append: " rounded-lg" %}
+{% endcase %}
+
+{% assign inner_container_name = "logo-shape" | UUID %}
+{% assign outer_container_name = "logo-shape" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ inner_container_name }} {
+			{{ inner_desktop_styles }}
+		}
+
+		.{{ outer_container_name }} {
+			{{ outer_desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ inner_container_name }} {
+			{{ inner_tablet_styles }}
+		}
+
+		.{{ outer_container_name }} {
+			{{ outer_tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ inner_container_name }} {
+			{{ inner_mobile_styles }}
+		}
+
+		.{{ outer_container_name }} {
+			{{ outer_mobile_styles }}
+		}
+	}
+</style>
+		
+<div class="{{ outer_container_name }} absolute before:bg-white/20 before:block before:h-full before:w-full
+	before:border-white before:border before:border-dashed before:absolute {{ outer_classes }}">
+	<div 
+		class="{{ inner_container_name }} bg-white relative h-full flex items-center
+		[&>svg]:h-full [&>svg]:w-full [&>img]:h-full [&>img]:w-full {{ inner_classes }}">
+		<img src="{{ content.image }}" alt="{{ content.alt }}" class="max-w-[120px]">
+	</div>
+</div>

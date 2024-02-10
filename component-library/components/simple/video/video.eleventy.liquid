@@ -1,0 +1,54 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_transform: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_transform: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_transform: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_block_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_block_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_block_alignment: styles, 'mobile' %}
+
+{% assign container_name = "video" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<video 
+{% if content.autoplay %}
+	autoplay muted defaultMuted playsinline
+{% endif %} 
+
+{% if content.loop %}
+	loop
+{% endif %}
+class="relative {{ container_name }}"
+title="{{ content.title }}">
+	<source src="{{ content.url }}" type="video/mp4">
+</video>

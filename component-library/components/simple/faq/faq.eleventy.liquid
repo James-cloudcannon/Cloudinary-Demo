@@ -1,0 +1,56 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_transform: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_transform: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_transform: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_position: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_position: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_position: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_block_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_block_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_block_alignment: styles, 'mobile' %}
+
+{% assign container_name = "accordion" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div x-data="{ selected:1 }" class="{{ container_name }}">
+	{% assign i = 0 %}
+	{% for row in content.rows %}
+		{% assign i = i | plus: 1 %}
+		<div class="border-l-[3px] pl-3 py-2 border-gray-300" :class="selected == {{ i }} ? 'border-blue-700' : 'border-gray-300'">
+			<div class="font-bold text-xl mb-1" @click="selected !== {{ i }} ? selected = {{ i }} : selected = null">
+				<a>{{ row.title }}</a>
+			</div>
+			<div x-show="selected == {{ i }}" {% unless i == 1 %}x-cloak{% endunless %} x-collapse>
+				{{ row.description }}
+			</div>
+		</div>
+	{% endfor %}
+</div>

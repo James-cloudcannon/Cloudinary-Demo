@@ -1,0 +1,92 @@
+<header class="z-50" 
+	x-data="{ mobileNavOpen: false, searchModalOpen: false }"
+	x-init="width = (window.innerWidth > 0) ? window.innerWidth : screen.width;"
+	@keydown.escape="searchModalOpen=false; $focusSearch(searchModalOpen);"
+	@keydown.window.prevent.ctrl.k="searchModalOpen=!searchModalOpen; $focusSearch(searchModalOpen);"
+	@keydown.window.prevent.cmd.k="searchModalOpen=!searchModalOpen; $focusSearch(searchModalOpen);"
+	@resize.window="
+		if(window.innerWidth > 1023){
+			mobileNavOpen = false;
+		}
+	"
+	x-trap.noscroll="mobileNavOpen">
+	
+	{% if announcement_banner.announcement_banner_content %}
+		{% include 'partials/nav/_announcement_banner.html' %}
+	{% endif %}
+
+	<div class="relative z-50 flex items-center container bg-white py-4">
+		<div class="flex-1">
+			<a href="/" class="w-56 transition delay-100 [&>svg>path]:hover:fill-cloudinary-hover hidden lg:block"
+				x-cloak
+				x-show="!mobileNavOpen" title="Cloudinary Logo">
+				{{ '/src/images/cloudinary-logo.svg' | svgContents }}
+			</a>
+			<a href="/" title="Cloudinary Logo" class="w-8 block transition delay-100 [&>svg>path]:hover:fill-cc_hover lg:hidden">
+				{{ '/src/images/cloudinary-logo-mobile.svg' | svgContents }}
+			</a>
+			</div>
+
+		<nav class="nav-container">
+			{% for item in nav %}
+				{% include 'partials/nav/_nav_item.html' item:item %}
+			{% endfor %}
+		</nav>
+		<div class="nav-desktop ml-4">
+			<button x-on:click="searchModalOpen = true; $focusSearch(true);" class="hover:bg-gray-100 transition p-3 w-11 rounded-lg [&>svg]:stroke-cloudinary inline-block" aria-label="Search">
+				{{ '/src/images/icons/outline/magnifying-glass.svg' | svgContents }}
+			</button>
+		</div>
+		<div class="nav-btn ml-3">
+			<div>
+				{% bookshop "helpers/button" text: "Sign up for free" link: "/users/register_free" style: "normal" extra_classes: "ml-1" %}
+			</div>
+		</div>
+
+
+		<!-- Mobile components -->
+		<div class="nav-mobile ml-auto">
+			<button x-on:click="searchModalOpen = true; $focusSearch(true);" class="hover:bg-gray-100 transition inline-block p-3 w-11 rounded-lg [&>svg]:stroke-cloudinary" aria-label="Search">
+				{{ '/src/images/icons/outline/magnifying-glass-mobile.svg' | svgContents }}
+			</button>
+			<button x-on:click="mobileNavOpen = !mobileNavOpen" class="hover:bg-gray-100 transition p-3 w-11 rounded-lg" aria-label="Toggle mobile nav">
+				<div class="flex items-center">
+					<div class="h-[14px] w-6 relative mx-auto">
+						<span :class="mobileNavOpen ? 'block absolute h-[3px] bg-blue-700 rounded-lg rotate-0 transition-all duration-200 top-[6px] left-1/2 w-0 ease-cloudinary-cubic' : 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 rotate-0 transition-all duration-200 top-0 ease-cloudinary-cubic'"></span>
+						<span :class="mobileNavOpen ? 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 rotate-45 transition-all duration-200 top-[6px] ease-cloudinary-cubic' : 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 rotate-0 transition-all duration-200 top-[6px] ease-cloudinary-cubic'"></span>
+						<span :class="mobileNavOpen ? 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 -rotate-45 transition-all duration-200 top-[6px] ease-cloudinary-cubic' : 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 rotate-0 transition-all duration-200 top-[6px] ease-cloudinary-cubic'"></span>
+						<span :class="mobileNavOpen ? 'block absolute h-[3px] bg-blue-700 rounded-lg rotate-0 transition-all duration-200 top-2 left-1/2 w-0 ease-cloudinary-cubic': 'block absolute h-[3px] w-full bg-blue-700 rounded-lg left-0 rotate-0 transition-all duration-200 top-3 ease-cloudinary-cubic'"></span>
+					</div> 	
+				</div>
+			</button>
+
+		</div>
+		{% include 'partials/nav/_mobile_nav.html' %}
+	</div>
+	{% include 'partials/search/modal.html' %}
+</header>
+
+<style>
+	.nav-container, .nav-btn {
+		display: none;
+
+		@media screen and (min-width: 1280px) {
+			display: block;
+		}
+	}
+	 .nav-desktop {
+		display: none;
+
+		@media screen and (min-width: 1280px) {
+			display: flex;
+		}
+	}
+
+	.nav-mobile {
+		display: flex;
+
+		@media screen and (min-width: 1280px) {
+			display: none;
+		}
+	}
+</style>

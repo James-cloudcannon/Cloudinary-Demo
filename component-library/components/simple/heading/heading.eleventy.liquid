@@ -1,0 +1,58 @@
+{% assign classes = styles.classes %}
+
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign el = "h4" %}
+{% case styles.element %}
+{% when 'h1' %}
+	{% assign el = "h1" %}
+{% when 'h2' %}
+	{% assign el = "h2" %}
+{% when 'h3' %}
+	{% assign el = "h3" %}
+{% endcase %}
+
+{% assign desktop_styles = desktop_styles | render_heading_text_size: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_heading_text_size: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_heading_text_size: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_text_alignment: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_text_alignment: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_text_alignment: styles, 'mobile' %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% case styles.width %}
+{% when 'tight' %}
+	{% assign classes = classes | append: " max-w-screen-md mx-auto" %}
+{% endcase %}
+{% assign classes = classes | append: ' max-w-[' | append: styles.desktop.max_width | append: '] ' %}
+
+{% assign container_name = "heading" | UUID %}
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<{{ el }} class="leading-tight {{ classes }} {{ container_name }} font-bold">
+	{{ content.text }}
+</{{ el }}>

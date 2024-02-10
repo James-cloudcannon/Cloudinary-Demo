@@ -1,0 +1,159 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Image"
+  description: Inserts an image
+  icon: image
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    alt: 
+    image:
+  styles:
+    border:
+    rounded:
+    ontop:
+    width: full
+    pixel_width:
+    max_width:
+    desktop:
+      visibility:
+        hide: false
+      transform:
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      block_alignment:
+        align_block: left
+      margin:
+        top: 0
+        bottom: 0
+      position:
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+    tablet:
+      visibility:
+        active: false
+        hide: false
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      block_alignment:
+        active: false
+        align_block: left
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      position:
+        active: false
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+    mobile:
+      visibility:
+        active: false
+        hide: false
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+      block_alignment:
+        active: false
+        align_block: left
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+      position:
+        active: false
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  alt:
+    comment: Alt tag for the image. Used for accessibility.
+  image:
+    comment: The location of the image
+    type: image
+  transform:
+    comment: Different methods to change how this component displays
+  scale:
+    comment: Increase or decrease the size of the image. 1.0 is the default scale
+    type: number
+  translate_x:
+    comment: Shift the image horizontally
+    type: number
+  translate_y:
+    comment: Shift the image vertically
+    type: number
+  rotate:
+    comment: Rotate the image
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  skew:
+    comment: Skew the image
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  ontop:
+    comment: Situational usage. If the image is for some reason behind another element, this should bring it to the front.
+    type: switch
+  block_alignment:
+    comment: Align component within its parent
+  align_block:
+    comment: Aligns the entire block
+    options:
+      values:
+        - left
+        - center
+  width:
+    comment: The width of the image
+    options:
+      values:
+        - normal
+        - tight
+  rounded:
+    comment: Rounds the corners of the image
+    type: switch
+  border:
+    comment: Adds a border to the image
+    type: switch
+  margin:
+    comment: Adjust the spacing between the image and other components. Can be negative for overlapping.
+  position:
+    comment: Adjust the position of the image.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number

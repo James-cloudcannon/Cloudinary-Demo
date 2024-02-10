@@ -1,0 +1,143 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Page-shape"
+  description:
+  icon:
+  tags: []
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  styles:
+    background_color:
+    hide_overflow: true
+    desktop:
+      size:
+        height: 0
+        width: 0
+      visibility:
+        hide: false
+      position:
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      transform:
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+    tablet:
+      size:
+        active: false
+        height: 0
+        width: 0
+      visibility:
+        active: false
+        hide: true
+      position:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+    mobile:
+      size:
+        active: false
+        height: 0
+        width: 0
+      visibility:
+        active: false
+        hide: true
+      position:
+        active: false
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+      transform:
+        active: false
+        scale: 1
+        translate_x: 0
+        translate_y: 0
+        rotate: 0
+        skew: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  position:
+    comment: Adjust the position of this logo.
+  logo:
+    type: image
+    comment: The path to this logo
+  name:
+    comment: Used for accessibility, doesn't show on the page otherwise
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number
+  transform:
+    comment: Different methods to change how this component displays
+  scale:
+    comment: Increase or decrease the size of the shape. 1.0 is the default scale
+    type: number
+  translate_x:
+    comment: Shift the shape horizontally
+    type: number
+  translate_y:
+    comment: Shift the shape vertically
+    type: number
+  rotate:
+    comment: Rotate the shape
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  skew:
+    comment: Skew the shape
+    type: range
+    options:
+      step: 1
+      max: 359
+      min: 0
+  background_color:
+    type: color
+    options:
+      format: rgb
+      alpha: true
+  width:
+    type: range
+    options:
+      step: any
+      max: 1000
+      min: 0
+  height:
+    type: range
+    options:
+      step: any
+      max: 1000
+      min: 0
+   

@@ -1,0 +1,86 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+
+{% assign container_name = "plan-summary" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="grid lg:grid-cols-2 xl:grid-cols-{{ content.plans | size }}  gap-x-5 gap-y-10 {{ container_name }}">
+	{% assign i = 0 %}
+	{% for plan in content.plans %}
+		<div class="border-2 {% if plan.featured %}border-cloudinary{% else %}border-carbon{% endif %} rounded-2xl">
+			<div class="px-8 py-8 relative">
+				<h2 class="mb-5 text-xl font-bold">{{ plan.name}}</h2>
+				{% if plan.featured %}
+					<div class="absolute top-[25px] right-8 bg-blue-100 text-cloudinary rounded-full px-4 py-2 font-bold">
+						Recommended
+					</div>
+				{% endif %}
+				<div>
+					{% assign priced_plan = plan.price | is_integer %}
+					{% if priced_plan %}
+						{% bookshop 'pricing/price' price:plan.price description:'/ month (USD)' %}
+					{% else %}
+						<div class="font-bold mb-6 text-3xl">{{ plan.price }}</div>
+					{% endif %}
+				</div>
+				<p class="mt-3 mb-6">
+					{{ plan.description }}
+				</p>
+				<div>
+					{% bookshop 'helpers/button' text:plan.cta.text size:'normal' link:plan.cta.link style:plan.cta.style extra_classes:'w-full' %}
+				</div>
+			</div>
+			<div class="px-8 py-6 border-gray-200 border-t">
+				<p class="font-bold text-lg">{{ plan.feature_heading }}</p>
+
+				<ul class="text-lg text-gray-800">
+					{% for p in plan.features %}
+						<li class="py-5 border-b border-gray-200 flex justify-center last:border-0 last:pb-2"> 
+							<span class="w-[25px] h-[25px] relative top-[2px] shrink-0 grow-0">
+								{{ '/src/images/icons/outline/check-circle.svg' | svgContents: 'stroke-green-600' }}
+							</span>
+							<span class="grow pl-3">
+								{{ p.description }}
+							</span>
+							<span class="w-[25px] h-[25px] relative top-[2px] shrink-0 grow-0 group flex flex-col items-center cursor-pointer">
+								{{ '/src/images/icons/outline/information-circle.svg' | svgContents: 'stroke-gray-400' }}
+								<div class="absolute bottom-1 flex-col items-center hidden mb-6 group-hover:flex w-[200px]">
+									<span class="relative z-10 p-2 text-xs rounded leading-none text-white whitespace-no-wrap bg-gray-800 shadow-lg">
+										{{ p.tooltip }}
+									</span>
+									<div class="w-3 h-3 -mt-2 rotate-45 bg-gray-800"></div>
+								</div>
+							</span>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		{% assign i = i | plus: 1 %}
+	{% endfor %}
+</div>

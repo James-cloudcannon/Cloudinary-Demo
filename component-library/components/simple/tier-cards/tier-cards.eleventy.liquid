@@ -1,0 +1,66 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "steps" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+	{% for card in content.cards %}
+		<div class="bg-white border-2 border-{{ card.border_color }} rounded-2xl p-5">
+			<h3 class="text-4xl leading-2 font-bold mb-2">
+				{{ card.title }}
+			</h3>
+			{% if card.subtitle %}
+				<h4 class="font-bold text-xl mb-4">{{ card.subtitle }}</h4>
+			{% endif %}
+
+			<ul class="flex flex-col gap-3 list-none">
+				{% for b in card.benefits %}
+					<li class="flex gap-2 justify-center last:border-0">
+						<span class="xl:w-5 xl:h-5 w-[25px] h-[25px] xl:top-[2px] relative shrink-0 grow-0">
+							{{ '/src/images/icons/outline/check-circle.svg' | svgContents: 'stroke-green-600' }}
+						</span>
+						<span class="grow {%if b.bold %} font-bold{%endif%}">
+							{{ b.text }}
+						</span>
+						{% if b.tooltip %}
+							<span class="xl:w-5 xl:h-5  w-[25px] h-[25px] relative xl:top-[2px] shrink-0 grow-0 group flex flex-col items-center cursor-pointer">
+								{{ '/src/images/icons/outline/information-circle.svg' | svgContents: 'stroke-gray-400' }}
+								<div class="absolute bottom-1 flex-col items-center hidden mb-6 group-hover:flex w-[200px]">
+									<span class="relative z-10 p-2 text-xs rounded leading-none text-white whitespace-no-wrap bg-gray-800 shadow-lg">
+										{{ b.tooltip }}
+									</span>
+									<div class="w-3 h-3 -mt-2 rotate-45 bg-gray-800"></div>
+								</div>
+							</span>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+</div>

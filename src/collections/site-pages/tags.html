@@ -1,0 +1,164 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - post
+    - posts
+    - case-studies
+    - case-study-people
+    - case-study-quote
+    - cheat-sheet
+    - ecosystem
+    - events
+    - jekyll-cheat-sheet
+    - ssg-pages
+    - templates
+    - authors
+    - undefined
+    - lessons
+    - site-pages
+    - landing-pages
+    - tutorials
+  addAllPagesToCollections: true
+layout: builder.html
+search_bucket:
+eleventyComputed:
+  title: Blog / {{ tag }}
+  content_blocks:
+    - _bookshop_name: sections/container
+      content:
+        blocks:
+          - _bookshop_name: simple/breadcrumbs
+            content:
+              final_crumb: "{{ tag }}"
+      styles:
+        background: white
+        rounded: none
+        size: normal
+        align: none
+        desktop:
+          margin:
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            top: 30
+            right: 0
+            bottom: 0
+            left: 0
+        tablet:
+          margin:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+        mobile:
+          margin:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+    - _bookshop_name: sections/container
+      content:
+        blocks:
+          - _bookshop_name: simple/heading
+            content:
+              text: "{{ tag }} posts"
+            styles:
+              size: h2
+              width: tight
+              desktop:
+                text_alignment:
+                  align: center
+                text_sizing:
+                  text_size: big
+                margin:
+                  top: 0
+                  bottom: 0
+              tablet:
+                text_alignment:
+                  active: false
+                  align: left
+                text_sizing:
+                  active: false
+                  text_size: big
+                margin:
+                  active: false
+                  top: 0
+                  bottom: 0
+              mobile:
+                text_alignment:
+                  active: false
+                  align: left
+                text_sizing:
+                  active: true
+                  text_size: normal
+                margin:
+                  active: false
+                  top: 0
+                  bottom: 0
+      styles:
+        background: white
+        rounded: none
+        size: normal
+        align: none
+        desktop:
+          margin:
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            top: 80
+            right: 0
+            bottom: 80
+            left: 0
+        tablet:
+          margin:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+        mobile:
+          margin:
+            active: false
+            top: 0
+            right: 0
+            bottom: 0
+            left: 0
+          padding:
+            active: true
+            top: 30
+            right: 0
+            bottom: 60
+            left: 0
+permalink: /blog/tags/{{ tag | slugify }}/
+
+---
+{% assign posts = collections[ tag ] | reverse %}
+{% include 'partials/blog/list.html' posts:posts pagination:false %}

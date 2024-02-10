@@ -1,0 +1,41 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Embed"
+  description: Embed code from a 3rd party
+  icon: data_object
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    embed_block: 
+  styles:
+    desktop:
+      margin:
+        top: 0
+        bottom: 0
+    tablet:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+    mobile:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  margin:
+    comment: Adjust the spacing between the component and other components. Can be negative for overlapping.
+  top:
+    type: number
+  bottom:
+    type: number

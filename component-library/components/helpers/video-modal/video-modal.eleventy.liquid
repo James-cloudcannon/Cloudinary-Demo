@@ -1,0 +1,24 @@
+<div
+	class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-carbon bg-opacity-50" 
+	x-show="showModal" x-cloak>
+
+	<div
+		class="w-screen px-10 mx-auto relative"
+		x-transition:enter="motion-safe:ease-out duration-300"
+		x-transition:enter-start="opacity-0 scale-90"
+		x-transition:enter-end="opacity-100 scale-100">
+		
+
+		<div class="relative mx-auto" style="max-width: calc((100vh - 92px) / 9 * 16);">
+			<div class="flex justify-end">
+				<button type="button" class="z-50 w-16 cursor-pointer [&>svg]:stroke-white hover:scale-110 transition" 
+					@click="hide()">
+					{{ '/src/images/icons/outline/x-mark.svg' | svgContents }}
+				</button>
+			</div>
+			<div style="padding:56.25% 0 0 0;position:relative;" @click.outside="hide()">
+				{% bookshop "helpers/vimeo" video:video title:title modal:true %}
+			</div>
+		</div>
+	</div>
+</div>

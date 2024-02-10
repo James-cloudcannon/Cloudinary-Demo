@@ -1,0 +1,103 @@
+{% case icon_color %}
+{% when 'purple-dark' %} 
+	{% assign foreground = '#cd7eff' %}
+	{% assign background = '#481c64' %}
+{% when 'purple-white' %}
+	{% assign foreground = '#5112ad' %}
+	{% assign background = '#ffffff' %}
+{% when 'purple' %}
+	{% assign foreground = '#5112ad' %}
+	{% assign background = '#ebdffc' %}
+{% when 'violet-dark' %} 
+	{% assign foreground = '#c847ff' %}
+	{% assign background = '#260932' %}
+{% when 'violet-white' %}
+	{% assign foreground = '#b12cc8' %}
+	{% assign background = '#ffffff' %}
+{% when 'violet' %}
+	{% assign foreground = '#b12cc8' %}
+	{% assign background = '#f7e7fa' %}
+{% when 'blue-dark' %} 
+	{% assign foreground = '#aaabff' %}
+	{% assign background = '#14155e' %}
+{% when 'blue-white' %}
+	{% assign foreground = '#2427ff' %}
+	{% assign background = '#ffffff' %}
+{% when 'blue' %}
+	{% assign foreground = '#004684' %}
+	{% assign background = '#d5ebff' %}
+{% when 'orange-dark' %} 
+	{% assign foreground = '#f09537' %}
+	{% assign background = '#321e09' %}
+{% when 'orange-white' %}
+	{% assign foreground = '#ff6838' %}
+	{% assign background = '#ffffff' %}
+{% when 'orange' %}
+	{% assign foreground = '#ff6838' %}
+	{% assign background = '#ffeee9' %}
+{% when 'yellow-dark' %}
+	{% assign foreground = '#f9f846' %}
+	{% assign background = '#3b3a07' %}
+{% when 'yellow-white' %}
+	{% assign foreground = '#ffd627' %}
+	{% assign background = '#ffffff' %}
+{% when 'yellow' %}
+	{% assign foreground = '#ffd627' %}
+	{% assign background = '#fffae7' %}
+{% when 'green-dark' %}
+	{% assign foreground = '#46ee8f' %}
+	{% assign background = '#0e3820' %}
+{% when 'green-white' %}
+	{% assign foreground = '#37963c' %}
+	{% assign background = '#ffffff' %}
+{% when 'green' %}
+	{% assign foreground = '#37963c' %}
+	{% assign background = '#e8f7e2' %}
+{% when 'red-dark' %}
+	{% assign foreground = '#ff6565' %}
+	{% assign background = '#3b0707' %}
+{% when 'red-white' %}
+	{% assign foreground = '#f30000' %}
+	{% assign background = '#ffffff' %}
+{% when 'red' %}
+	{% assign foreground = '#f30000' %}
+	{% assign background = '#ffe1e1' %}
+{% when 'pink-dark' %}
+	{% assign foreground = '#fbc7c7' %}
+	{% assign background = '#473333' %}
+{% when 'pink-white' %}
+	{% assign foreground = '#f16462' %}
+	{% assign background = '#ffffff' %}
+{% when 'pink' %}
+	{% assign foreground = '#f16462' %}
+	{% assign background = '#fdeeee' %}
+{% when 'teal-dark' %}
+	{% assign foreground = '#29d59f' %}
+	{% assign background = '#0c4030' %}
+{% when 'teal-white' %}
+	{% assign foreground = '#23e1a5' %}
+	{% assign background = '#ffffff' %}
+{% when 'teal' %}
+	{% assign foreground = '#23e1a5' %}
+	{% assign background = '#dbfffc' %}
+{% else %}
+	{% assign foreground = '#373737' %}
+	{% assign background = '#e9e9e9' %}
+{% endcase %}
+
+{% case icon_size %}
+{% when 'big' %}
+	{% assign size_classes = "w-[70px] h-[70px]" %}
+{% else %}
+	{% assign size_classes = "w-14 h-14" %}
+{% endcase %}
+
+{% if icon_path contains 'solid' %}
+	{% assign svg_style = 'fill-[' | append: foreground | append: ']' %}
+{% else %}
+	{% assign svg_style = 'stroke-[' | append: foreground | append: ']' %}
+{% endif %}
+
+<div class="{{ size_classes }} p-3 rounded-2xl" style="background: {{ background }} ">
+	{{ '/src/images/icons/' | append: icon_path | append: '.svg' | svgContents: svg_style }}
+</div>

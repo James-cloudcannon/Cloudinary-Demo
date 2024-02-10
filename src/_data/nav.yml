@@ -1,0 +1,345 @@
+- name: Platform
+  sub_navs:
+    - title: Developer
+      sub_nav:
+        - name: Programmable Media
+          link: /products/programmable_media
+          description: APIs to automate image and video lifecycles
+          icon_path: outline/paper-airplane
+          nav_icon_color: cloudinary-blue
+        - name: Video API
+          link: /video_api
+          description: Add video to your website or app in minutes
+          icon_path: outline/document-arrow-up
+          nav_icon_color: cloudinary-blue
+        - name: Cloudinary AI
+          link: /products/cloudinary_ai
+          description: Generative AI and Machine Learning to speed creativity
+          icon_path: outline/cloud
+          nav_icon_color: cloudinary-blue
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: Digital Asset Management
+      sub_nav:
+        - name: Assets
+          link: /products/digital_asset_management
+          description: for Enterprise and Large Organizations
+          icon_path: outline/pencil-square
+          nav_icon_color: electric-purple
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: Beta
+      sub_nav:
+        - name: MediaFlows
+          link: https://home.mediaflows.cloudinary.com/
+          description: Low-code workflow automation for image & video
+          icon_path: outline/camera
+          nav_icon_color: electric-purple
+        - name: FinalTouch
+          link: https://final-tou.ch/
+          description: Create quality product photos with Gen-AI
+          icon_path: outline/photo
+          nav_icon_color: electric-purple
+      sub_card:
+- name: Solutions
+  sub_navs:
+    - title: By business need
+      sub_nav:
+        - name: Composable Architecture
+          link: /solutions/composable-architecture
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Content Velocity
+          link: /solutions/content_velocity
+          description: 
+          icon_path:
+          nav_icon_color: 
+        - name: Customization
+          link: /solutions/customization
+          description:
+          icon_path: 
+          nav_icon_color: 
+        - name: Headless DAM
+          link: /solutions/headless-dam
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Headless DAM
+          link: /solutions/headless-dam
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Immersive Experiences
+          link: /solutions/immersive_experiences
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: " "
+      sub_nav:
+        - name: Omnichannel Journeys
+          link: /solutions/omnichannel
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Performance Optimization
+          link: /solutions/performance_optimization
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Video
+          link: /solutions/video
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: By industry
+      sub_nav:
+        - name: E-commerce
+          link: /solutions/ecommerce
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Media & Entertainment
+          link: /solutions/industries/media_entertainment
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Non-Profits
+          link: /solutions/industries/cloudinary-for-nonprofits
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Retail
+          link: /solutions/retail
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Travel & Hospitality
+          link: /solutions/industries/travel_hospitality
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card: []
+- name: Developers
+  link: /developers
+- name: Resources
+  sub_navs:
+    - title: Learn
+      sub_nav:
+        - name: Blog
+          link: /products/programmable_media
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Demos
+          link: /video_api
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Documentation
+          link: /products/cloudinary_ai
+          description:
+          icon_path: 
+          nav_icon_color:
+        - name: Education & Training
+          link: /products/cloudinary_ai
+          description:
+          icon_path: 
+          nav_icon_color:
+        - name: Glossary
+          link: /products/cloudinary_ai
+          description:
+          icon_path: 
+          nav_icon_color:
+        - name: Podcasts
+          link: /products/cloudinary_ai
+          description:
+          icon_path: 
+          nav_icon_color:
+        - name: Resource Library
+          link: /products/cloudinary_ai
+          description:
+          icon_path: 
+          nav_icon_color:
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: Connect
+      sub_nav:
+        - name: Community
+          link: /products/digital_asset_management
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Roadmap
+          link: 
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: Tech Articles
+      sub_nav:
+        - name: Image Formats
+          link: /guides/image-formats/automatically-change-format-to-jpg
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Video Formats
+          link: /guides/video-formats/top-six-web-video-formats-of-2024
+          description: 
+          icon_path: 
+          nav_icon_color:
+        - name: Image Effects
+          link: /guides/image-effects/how-to-create-a-progress-bar-for-asset-uploads
+          description:
+          icon_path: 
+          nav_icon_color: 
+        - name: Video Effects
+          link: /guides/video-effects/simplify-mobile-video-optimization
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Digital Asset Management
+          link: /guides/digital-asset-management/what-is-digital-asset-management
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: E-Commerce Platform
+          link: /guides/e-commerce-platform/select-the-right-e-commerce-platform-for-your-needs
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Front-End Development
+          link: /guides/front-end-development/front-end-development-the-complete-guide
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: " "
+      sub_nav:
+        - name: Web Performance
+          link: /guides/web-performance/web-performance-what-is-it-trends-and-insights-for-2024
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Responsive Images
+          link: /guides/responsive-images/4-techniques-for-creating-responsive-images-with-bootstrap
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Bulk Image Resize
+          link: /guides/bulk-image-resize/bulk-image-resize-in-css-javascript-python-java-node-js-and-other-languages
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Automatic Image Cropping
+          link: /guides/automatic-image-cropping/cropping-images-in-python-with-pillow-and-opencv
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Marketing Videos
+          link: /guides/marketing-videos/22-types-of-marketing-videos-and-10-ways-to-make-them-great
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: WordPress Plugin
+          link: /guides/wordpress-plugin/optimize-video-for-wordpress-a-guide-for-seamless-performance
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: User-Generated Content
+          link: /guides/user-generated-content/user-generated-content-marketing-opportunity-of-the-century-and-its-only-the-beginning
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+- name: About Us
+  sub_navs:
+    - title: Cloudinary Overview
+      sub_nav:
+        - name: About Us
+          link: /about
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Customers
+          link: /customers
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Partners
+          link: /partners
+          description: 
+          icon_path: 
+          nav_icon_color: 
+      sub_card:
+        - featured_page_link:
+          name:
+          image:
+            image_path:
+            image_alt:
+    - title: ' '
+      sub_nav:
+        - name: Careers
+          link: /careers
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Newsroom
+          link: /newsroom
+          description: 
+          icon_path: 
+          nav_icon_color: 
+        - name: Labs
+          link: /labs
+          description: 
+          icon_path: 
+          nav_icon_color: 
+    - title: upcoming events
+      sub_nav:
+      sub_card:
+        - featured_page_link: /events
+          name: 'See all events'
+          image:
+            image_path: /images/Events_Nav_Placeholder.svg
+            image_alt:  ""
+- name: Pricing
+  link: /pricing

@@ -1,0 +1,17 @@
+{% if video contains '?' %}
+	{% assign j = '&' %}
+{% else %}
+	{% assign j = '?' %}
+{% endif %}
+
+<div class="relative {% if border %}border-2{% endif %}">
+	<iframe
+		class="w-full aspect-video"
+		src="{{ video }}{{ j }}muted=1&background=1&loop=1&autopause=0&autoplay=1"
+		allow="autoplay; fullscreen; picture-in-picture" 
+		allowfullscreen="" 
+		title="{{ title }}" 
+		data-ready="true"
+		loading="lazy"
+		frameborder="0"></iframe>
+</div>

@@ -1,0 +1,56 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Small Quote Grid"
+  description: "Displays a grid of quotes"
+  icon: format_quote
+  tags: ['content']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    quotes:
+      - case_study_quote:
+  styles:
+    desktop:
+      margin:
+        top: 0
+        bottom: 0
+    tablet:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+    mobile:
+      margin:
+        active: false
+        top: 0
+        bottom: 0
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  active:
+    comment: These values won't be used unless active is enabled.
+    type: switch
+  desktop:
+    comments: Styles for Desktop, unless overridden will also be used for tablet and mobile.
+  tablet:
+    comments: Styles for Tablet, unless overridden will also be used for mobile.
+  mobile:
+    comments: Styles for mobile.
+  logo_blocks:
+    comment: The list of logos
+  margin:
+    comment: Adjust the spacing between this component and others. Can be negative for overlapping.
+  top:
+    type: number
+  right:
+    type: number
+  bottom:
+    type: number
+  left:
+    type: number

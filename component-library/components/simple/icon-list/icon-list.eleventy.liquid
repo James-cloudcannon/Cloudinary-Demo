@@ -1,0 +1,88 @@
+{% assign desktop_styles = "" %}
+{% assign tablet_styles = "" %}
+{% assign mobile_styles = "" %}
+
+{% assign desktop_styles = desktop_styles | render_margin: styles, 'desktop' %}
+{% assign tablet_styles = tablet_styles | render_margin: styles, 'tablet' %}
+{% assign mobile_styles = mobile_styles | render_margin: styles, 'mobile' %}
+
+{% assign container_name = "icon-list" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }}">
+	{% for item in content.list %}
+		{% case item.icon_color %}
+		{% when 'purple-dark' %} 
+			{% assign foreground = '#cd7eff' %}
+		{% when 'purple' %}
+			{% assign foreground = '#5112ad' %}
+		{% when 'violet-dark' %} 
+			{% assign foreground = '#c847ff' %}
+		{% when 'violet' %}
+			{% assign foreground = '#b12cc8' %}
+		{% when 'blue-dark' %} 
+			{% assign foreground = '#aaabff' %}
+		{% when 'blue' %}
+			{% assign foreground = '#004684' %}
+		{% when 'orange-dark' %} 
+			{% assign foreground = '#f09537' %}
+		{% when 'orange' %}
+			{% assign foreground = '#ff6838' %}
+		{% when 'yellow-dark' %}
+			{% assign foreground = '#f9f846' %}
+		{% when 'yellow' %}
+			{% assign foreground = '#ffd627' %}
+		{% when 'green-dark' %}
+			{% assign foreground = '#46ee8f' %}
+		{% when 'green' %}
+			{% assign foreground = '#2fdd38' %}
+		{% when 'red-dark' %}
+			{% assign foreground = '#ff6565' %}
+		{% when 'red' %}
+			{% assign foreground = '#f30000' %}
+		{% when 'pink-dark' %}
+			{% assign foreground = '#fbc7c7' %}
+		{% when 'pink' %}
+			{% assign foreground = '#f16462' %}
+		{% when 'teal-dark' %}
+			{% assign foreground = '#29d59f' %}
+		{% when 'teal' %}
+			{% assign foreground = '#23e1a5' %}
+		{% else %}
+			{% assign foreground = '#373737' %}
+		{% endcase %}
+
+		{% if item.icon_path contains 'solid' %}
+			{% assign svg_style = 'fill-[' | append: foreground | append: ']' %}
+		{% else %}
+			{% assign svg_style = 'stroke-[' | append: foreground | append: ']' %}
+		{% endif %}
+		<div class="flex items-start">
+			<span class="inline-block w-[20px] h-[20px] grow-0 shrink-0 mr-2 relative top-[5px]">
+				{{ '/src/images/icons/' | append: item.icon_path | append: '.svg' | svgContents: svg_style }}
+			</span>
+			<span class="text-lg">
+				{{ item.text }}
+			</span>
+		</div>
+	{% endfor %}
+</div>

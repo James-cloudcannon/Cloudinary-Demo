@@ -1,0 +1,12 @@
+announcement_banner_content: >-
+  🌟 Announcement Placeholder 🌟
+color: black
+_inputs:
+  color:
+    type: select
+    options:
+      values:
+        - cloudinary-blue
+        - black
+        - sea
+        - caramel

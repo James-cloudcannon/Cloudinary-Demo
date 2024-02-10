@@ -1,0 +1,21 @@
+---
+title: Blog
+layout: page.html
+permalink: >-
+  /blog{% if pagination.pageNumber > 0 %}/page/{{ pagination.pageNumber }}{%
+  endif %}/index.html
+description: Best practices, trends, and insights on managing, optimizing, and delivering visual experiences to launch faster, boost conversions, and stay competitive.
+seo:
+  featured_image: https://res.cloudinary.com/cloudinary-marketing/image/upload/f_auto,q_auto/v1597642219/creative_source/Brand/Social%20Images/Cld_SocShare_Card_FB_2020.png
+  featured_image_alt: Cloudinary Blog
+pagination:
+  data: collections.posts
+  size: 22
+  alias: posts
+  reverse: true
+search_bucket: Excluded
+filters:
+  - id: category
+    name: category
+---
+{% include 'partials/blog/list.html' posts:posts filters:filters pagination:pagination header:true %}

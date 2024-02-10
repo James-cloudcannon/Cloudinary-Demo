@@ -1,0 +1,80 @@
+# Metadata about this component, to be used in the CMS
+spec:
+  structures:
+    - blocks
+  label: "Two column"
+  description: "Set ups two columns which componenets can be added to"
+  icon: vertical_split
+  tags: ['container']
+
+# Defines the structure of this component, as well as the default values
+blueprint:
+  content:
+    left:
+      blocks: []
+    right:
+      blocks: []
+  styles:
+    left_background_image:
+      active: false
+      image_path: ""
+    right_background_image:
+      active: false
+      image_path: ""
+    desktop:
+      columns:
+        type: split
+        width: 0
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment: 
+        v_align: top
+    tablet:
+      columns:
+        active: false
+        type: split
+        width: 0
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment:
+        active: false
+        v_align: top
+    mobile:
+      columns:
+        active: false
+        type: split
+        width: 0
+        gap: 0
+        vertical_gap: 0
+      vertical_block_alignment:
+        active: false
+        v_align: top
+
+# Overrides any fields in the blueprint when viewing this component in the component browser
+preview:
+
+# Any extra CloudCannon inputs configuration to apply to the blueprint
+_inputs:
+  left:
+    comment: "Components for the left column"
+  right:
+    comment: "Components for the right column"
+  type:
+    comment: "The type of two column layout to render"
+    type: select
+    options:
+      values:
+        - split
+        - split-60-40
+        - split-40-60
+        - split-70-30
+        - split-30-70
+        - fixed-fluid
+        - fluid-fixed
+        - stacked
+  width:
+    comment: "for a 'fixed' type, the width of the fixed column"
+    type: number
+  gap:
+    comment: The size of the gap between the columns
+    type: number

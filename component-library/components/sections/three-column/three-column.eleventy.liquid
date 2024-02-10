@@ -1,0 +1,107 @@
+{% assign desktop_styles = "" | render_three_columns: styles, 'desktop' %}
+{% assign tablet_styles = "" | render_three_columns: styles, 'tablet' %}
+{% assign mobile_styles = "" | render_three_columns: styles, 'mobile' %}
+
+{% assign column_desktop_styles = "" | render_vertical_block_alignment: styles, 'desktop' %}
+{% assign column_tablet_styles = "" | render_vertical_block_alignment: styles, 'tablet' %}
+{% assign column_mobile_styles = "" | render_vertical_block_alignment: styles, 'mobile' %}
+
+{% assign container_name = "columns" | UUID %}
+{% assign left_container_name = "left-column" | UUID %}
+{% assign middle_container_name = "middle-column" | UUID %}
+{% assign right_container_name = "right-column" | UUID %}
+
+<style>
+	@media (min-width: 1280px) {
+		.{{ container_name}} {
+			{{ desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ container_name}} {
+			{{ tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ container_name}} {
+			{{ mobile_styles }}
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.{{ left_container_name}} {
+			{{ column_desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ left_container_name}} {
+			{{ column_tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ left_container_name}} {
+			{{ column_mobile_styles }}
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.{{ middle_container_name}} {
+			{{ column_desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ middle_container_name}} {
+			{{ column_tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ middle_container_name}} {
+			{{ column_mobile_styles }}
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.{{ right_container_name}} {
+			{{ column_desktop_styles }}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1279px) {
+		.{{ right_container_name}} {
+			{{ column_tablet_styles }}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.{{ right_container_name}} {
+			{{ column_mobile_styles }}
+		}
+	}
+</style>
+
+<div class="{{ container_name }} relative">
+	<div class="{{ left_container_name }}">
+		{% for component in content.left.blocks %}
+			{% bookshop "{{component._bookshop_name}}" bind: component %}
+		{% endfor %}
+	</div>
+
+	<div class="{{ middle_container_name }}">
+		{% for component in content.middle.blocks %}
+			{% bookshop "{{component._bookshop_name}}" bind: component %}
+		{% endfor %}
+	</div>
+
+	<div class="{{ right_container_name }}">
+		{% for component in content.right.blocks %}
+			{% bookshop "{{component._bookshop_name}}" bind: component %}
+		{% endfor %}
+	</div>
+</div>
+

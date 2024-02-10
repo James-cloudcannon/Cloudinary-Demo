@@ -1,0 +1,12 @@
+<ul class="flex">
+	{% for item in footer-socials %}
+		<li class="group">
+			{% assign icon_path = '/src/images/icons/social/' | append: item.icon | append: '.svg' %}
+			<a title="{{ item.icon }}" aria-label="{{ item.icon }}" target="_blank" rel="noopener" 
+			class="[&>svg]:w-4 group-first:ml-0 ml-3 fill-gray-600 hover:fill-carbon inline-block transition" href="{{ item.url }}">
+				{{ icon_path | svgContents }}
+				<span class="sr-only">{{ item.icon }}</span>
+			</a>
+		</li>
+	{% endfor %}
+</ul>

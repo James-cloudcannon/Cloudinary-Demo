@@ -1,0 +1,48 @@
+<div class="flex items-start justify-center fixed top-0 left-0 w-full h-full z-[99]"
+     role="dialog"
+     tabindex="-1"
+     x-show="searchModalOpen"
+     x-cloak
+     x-transition>
+    <div class="bg-white flex flex-col overflow-hidden mt-0 md:mt-6 w-screen h-screen max-h-screen rounded-none md:rounded-lg md:w-[820] md:max-w-4xl md:max-h-[90vh] p-6"
+         x-on:click.away="searchModalOpen = false; $focusSearch(false);">
+      <p class="flex items-center justify-between text-3xl font-bold m-0 mb-4">
+        <span id="summary">Search</span>
+        <button class="p-3 flex items-center cursor-pointer bg-transparent appearance-none hover:bg-gray-100 transition w-11 rounded-xl"
+                x-on:click="searchModalOpen = false; $focusSearch(false);" 
+                title="Close Search">
+            {{ '/src/images/icons/outline/x-mark.svg' | svgContents }}
+        </button>
+      </p>
+      <div id="searchbox"></div>
+      <div id="searchfilter"></div>
+      <div 
+          class="text-nimbus text-center text-base font-normal mt-5"
+          id="searchmessage" 
+          x-data="{ recents: [] }"
+          x-init="recents = $getRecentSearches() ?? []">
+        <template x-if="!recents.length"><span>No recent searches</span></template>
+        <template x-if="recents.length"><span class="text-nimbus block w-full text-left font-bold text-base">Recents</span></template>
+        <template x-for="recent in recents">
+          <div class="flex items-center bg-transparent rounded-lg hover:bg-gray-100">
+            <button class="w-11 flex flex-1 items-center gap-2 p-5 cursor-pointer bg-transparent appearance-none text-lg text-gray-500 [&>svg]:w-8"
+                    x-on:click="$triggerSearch(recent)" 
+                    :title="`Search for ${recent}`">
+                <!-- TODO: Use History icon as per design -->
+                {{ '/src/images/icons/outline/clock.svg' | svgContents }}
+              <span class="mr-auto" x-text="recent"></span>
+            </button>
+            <button class="w-11 flex items-center gap-2 p-3 cursor-pointer bg-transparent appearance-none text-lg text-gray-500 hover:[&>svg]:stroke-cloudinary"
+                    x-on:click="recents = $deleteRecentSearch(recent)" 
+                    title="Delete Recent Search">
+                {{ '/src/images/icons/outline/trash.svg' | svgContents }}
+            </button>
+          </div>
+        </template>
+      </div>
+      <div class="flex flex-1 flex-col gap-2 overflow-y-scroll" id="searchresults"></div>
+    </div>
+</div>
+<div class="w-full h-full fixed top-0 left-0 bg-black opacity-80 z-[98]"
+     x-show="searchModalOpen" 
+     x-cloak></div>

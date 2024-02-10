@@ -1,0 +1,45 @@
+{% assign sub_bg = 'bg-gray-50' %}
+{% assign k = 0 %}
+{% for sf in sub_features %}
+	{% assign sub_last = false %}
+	{% if k == sub_feature_last_index %}
+		{% assign sub_last = true %}
+	{% endif %}
+	<tr class="border-b border-gray-300 {{ tr_classes }}" x-cloak :class="open ? '' : 'hidden'">
+		<td class="{{ first_td_classes }} {% if sub_last %}{{ td_before }}{% endif %} {{ sub_bg }} pr-3 transition">
+			<div class="{{ td_classes }}" x-show="open" x-collapse>
+				<div class="flex justify-between">
+					<span class="text-lg pl-3"><span class="pr-2">•</span> {{ sf.name }}</span>
+					<span class="w-[25px] h-[25px] relative top-[2px] shrink-0 grow-0 group flex flex-col items-center cursor-pointer">
+						{{ '/src/images/icons/outline/information-circle.svg' | svgContents: 'stroke-gray-400' }}
+						<div class="absolute bottom-1 flex-col items-center hidden mb-6 group-hover:flex w-[200px]">
+							<span class="relative z-10 p-2 text-xs rounded leading-none text-white whitespace-no-wrap bg-gray-800 shadow-lg">
+								{{ sf.description }}
+							</span>
+							<div class="w-3 h-3 -mt-2 rotate-45 bg-gray-800"></div>
+						</div>
+					</span>
+				</div>
+			</div>
+		</td>
+
+		{% assign sub_feature_count = 0 %}
+		{% for allocation in sf.plan_allocation %}
+			<td class="{{ base_classes }} {{ row_classes[sub_feature_count] }} {% if sub_last %}{{ td_before }}{% endif %} {{ sub_bg }} transition">
+				<div class="{{ td_classes }}" x-show="open" x-collapse>
+					<div class="flex justify-center text-center">
+						{% if allocation == 'yes' %}
+							{{ '/src/images/icons/outline/check-circle.svg' | svgContents: 'stroke-green-600 w-8 h-8' }}
+						{% elsif allocation == 'no' %}
+							{{ '/src/images/icons/outline/x-circle.svg' | svgContents: 'stroke-red-600 w-8 h-8' }}
+						{% else %}
+							{{ allocation }}
+						{% endif %}
+					</div>
+				</div>
+			</td>
+			{% assign sub_feature_count = sub_feature_count | plus: 1 %}
+		{% endfor %}
+	</tr>
+	{% assign k = k | plus: 1 %}
+{% endfor %}

@@ -1,0 +1,33 @@
+{% assign background = "bg-cloudinary" %}
+{% assign text = "text-white" %}
+{% assign cross = "bg-white" %}
+
+{% if announcement_banner.color == "black" %}
+	{% assign background = "bg-stone-900" %}
+{% endif %}
+{% if announcement_banner.color == "sea" %}
+        {% assign background = "bg-sea" %}
+        {% assign text = "text-midnight" %}
+        {% assign cross = "bg-midnight" %}
+{% endif %}
+{% if announcement_banner.color == "caramel" %}
+    {% assign background = "bg-caramel" %}
+    {% assign text = "text-midnight" %}
+    {% assign cross = "bg-midnight" %}
+{% endif %}
+
+<div class="c-announcement-banner {{ background }}" x-data="{ announcementBannerOpen: $persist(true).using(sessionStorage) }" x-cloak>
+    <div class="c-announcement-banner__container container flex" x-show="announcementBannerOpen">
+        <div class="c-announcement-banner__container__content flex justify-center text-center w-full	{{ text }} py-2 [&_a]:font-bold [&_a]:underline [&_img]:max-h-5 [&_img]:w-auto [&_img]:align-middle">
+            {{ announcement_banner.announcement_banner_content | markdownify }}
+        </div>
+        <button x-on:click="announcementBannerOpen = !announcementBannerOpen" aria-label="close announcement banner">
+            <div class="flex items-center">
+                <div class="h-[12px] m-2 w-3 relative flex items-center">
+                    <span class="block absolute h-[2px] w-full {{ cross }} rounded-lg left-0 rotate-45"></span>
+                    <span class="block absolute h-[2px] w-full {{ cross }} rounded-lg left-0 -rotate-45"></span>
+                </div> 	
+            </div>
+        </button>
+    </div>
+</div>
