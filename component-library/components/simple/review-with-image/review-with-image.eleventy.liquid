@@ -24,7 +24,8 @@
         :class="{ 'text-black border-b-2 border-cloudinary': activeTab === tabs[{{ forloop.index0 }}] }"
         @click.prevent="activeTab = tabs[{{ forloop.index0 }}]">
         {% if review.tab_name.image %}
-            {% bookshop "helpers/image" image: review.tab_name.image.image_path alt: review.tab_name.image.alt_text responsive: false classes: 'mx-auto w-fit' %}
+            {% bookshop "helpers/image" image: review.tab_name.image.image_path alt: review.tab_name.image.alt_text responsive: false classes: 'mx-auto w-auto max-w-full' %}
+
         {% else %}
           {{ review.tab_name.text }}
         {% endif %}
