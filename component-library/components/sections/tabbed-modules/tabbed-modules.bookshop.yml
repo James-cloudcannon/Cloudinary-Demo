@@ -9,7 +9,6 @@ spec:
 
 # Defines the structure of this component, as well as the default values
 blueprint:
-  background_color: "#ffffff" 
   content:
     tabs:
       - title: "Tab 1"
@@ -20,5 +19,6 @@ preview:
 
 # Any extra CloudCannon inputs configuration to apply to the blueprint
 _inputs:
-  background_color: 
-    type: color
+  title: 
+    type: text
+    comment: "Heading of the tabbed section"

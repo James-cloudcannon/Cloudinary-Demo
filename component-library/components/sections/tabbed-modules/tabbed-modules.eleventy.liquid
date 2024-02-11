@@ -1,10 +1,10 @@
-<section id="tabbed-module" class="relative py-16 bg-center bg-cover bg-inherit" x-data="{ activeTab: 1 }" style="background-color: {{ background_color }};">
+<section id="tabbed-module" class="relative py-16 bg-center bg-cover bg-inherit" x-data="{ activeTab: 1 }">
   <div class="container mx-auto px-4">
     <div class="flex justify-center mb-8 gap-y-4 gap-x-14 mx-auto flex-col w-fit lg:flex-row">
       {% for tab in content.tabs %}
       <button
-        class="tab-titles text-[#C3C8D5] text-xl bg-inherit font-semibold min-w-[250px] py-2 px-4 pb-6 border-b-2 hover:border-cloudinary"
-        :class="{ 'text-white border-cloudinary': activeTab === {{ forloop.index }} }"
+        class="tab-titles text-inherit text-xl bg-inherit font-semibold min-w-[250px] py-2 px-4 pb-6 border-b-2 hover:border-cloudinary"
+        :class="{ 'text-inherit border-cloudinary': activeTab === {{ forloop.index }} }"
         @click="activeTab = {{ forloop.index }}">
         {{ tab.title }}
       </button>
