@@ -99,6 +99,17 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addFilter("image_dimensions", ImageRenderer.image_dimensions);
 	eleventyConfig.addFilter('ymlify', contents => yaml.load(contents))
 
+	eleventyConfig.addFilter('get_video_mime_type', function(url) {
+		const extension = url.split('.').pop();
+		const mimeTypes = {
+			mp4: 'video/mp4',
+			webm: 'video/webm',
+			ogv: 'video/ogg',
+		};
+		return mimeTypes[extension] || 'video/mp4';
+	});
+	
+
 	// Custom shortcodes
 	const IMAGE_OPTIONS = {
 		widths: [400, 800, 1280, 1600],

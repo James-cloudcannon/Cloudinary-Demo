@@ -49,6 +49,6 @@
 	loop
 {% endif %}
 class="relative {{ container_name }}"
-title="{{ content.title }}">
-	<source src="{{ content.url }}" type="video/mp4">
+title="{{ content.title }}" src="{{ content.url }}">
+	<source src="{{ content.url }}" type="{{ content.url | get_video_mime_type }}">
 </video>
