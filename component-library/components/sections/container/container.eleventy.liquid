@@ -76,7 +76,7 @@
 {% assign container_name = "container" | UUID %}
 
 <style>
-	{% if styles.desktop.page_decoration.active %}
+	{% if styles.page_decoration.active %}
 		.{{ container_name }}::before {
 			content: '';
 			position: absolute;
@@ -87,6 +87,8 @@
 			right: {{ styles.desktop.page_decoration.position.right }}px;
 			bottom: {{ styles.desktop.page_decoration.position.bottom }}px;
 			left: {{ styles.desktop.page_decoration.position.left }}px;
+			width: {{ styles.desktop.page_decoration.size.width }}px;
+			height: auto;
 		}
 	{% endif %}
 	@media (min-width: 1280px) {
@@ -96,39 +98,12 @@
 	}
 
 	@media (min-width: 768px) and (max-width: 1279px) {
-		{% if styles.tablet.page_decoration.active %}
-			.{{ container_name }}::before {
-			content: '';
-			position: absolute;
-			background-image: url('{{ styles.tablet.page_decoration.image_path }}');
-			background-size: contain;
-			background-repeat: no-repeat;
-			top: {{ styles.tablet.page_decoration.position.top }}px;
-			right: {{ styles.tablet.page_decoration.position.right }}px;
-			bottom: {{ styles.tablet.page_decoration.position.bottom }}px;
-			left: {{ styles.tablet.page_decoration.position.left }}px;
-			}
-		{% endif %}
-
 		.{{ container_name}} {
 			{{ tablet_styles }}
 		}
 	}
 
 	@media (max-width: 767px) {
-		{% if styles.mobile.page_decoration.active %}
-			.{{ container_name }}::before {
-			content: '';
-			position: absolute;
-			background-image: url('{{ styles.mobile.page_decoration.image_path }}');
-			background-size: contain;
-			background-repeat: no-repeat;
-			top: {{ styles.mobile.page_decoration.position.top }}px;
-			right: {{ styles.mobile.page_decoration.position.right }}px;
-			bottom: {{ styles.mobile.page_decoration.position.bottom }}px;
-			left: {{ styles.mobile.page_decoration.position.left }}px;
-			}
-		{% endif %}
 		.{{ container_name}} {
 			{{ mobile_styles }}
 		}
