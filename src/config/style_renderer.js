@@ -151,8 +151,6 @@ module.exports = {
 		return styles +  `font-size: ${textSize};`;
 	},
 
-	
-
 	render_text_block_text_size: function(styles, fm, device) {
 		let sizing = module.exports.get_data(fm, device, 'text_sizing');
 
@@ -290,24 +288,6 @@ module.exports = {
 
 		return styles + `transform: ${transformations};`
 	},
-
-	render_clip_path: function(styles, fm, device) {
-		let clipShape = module.exports.get_data(fm, device, 'clip_path');
-	
-		let clipPathTransformations = '';
-	
-		if (clipShape !== undefined && Array.isArray(clipShape.points)) {
-			const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
-			clipPathTransformations = `polygon(${points}); `;
-		}
-	
-		if ('hide_overflow' in fm && fm.hide_overflow) {
-			clipPathTransformations += 'overflow: hidden; ';
-		}
-	
-		return styles + `clip-path: ${clipPathTransformations};`;
-	},
-	
 
 	render_logo_transform: function(styles, fm, device) {
 		let transform = module.exports.get_data(fm, device, 'logo_transform');

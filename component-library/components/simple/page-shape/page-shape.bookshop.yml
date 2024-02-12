@@ -13,14 +13,6 @@ blueprint:
     background_color:
     hide_overflow: true
     desktop:
-      clip_path:
-        points:
-          - x: 50
-            y: 0
-          - x: 0
-            y: 100
-          - x: 100
-            y: 100
       size:
         height: 0
         width: 0
@@ -38,8 +30,6 @@ blueprint:
         rotate: 0
         skew: 0
     tablet:
-      clip_path:
-        path: "polygon(50% 0%, 0% 100%, 100% 100%)"
       size:
         active: false
         height: 0
@@ -61,8 +51,6 @@ blueprint:
         rotate: 0
         skew: 0
     mobile:
-      clip_path:
-        path: "polygon(50% 0%, 0% 100%, 100% 100%)"
       size:
         active: false
         height: 0
@@ -152,17 +140,4 @@ _inputs:
       step: any
       max: 1000
       min: 0
-  points:
-    comment: The points of the polygon
-  x:
-    type: range
-    options:
-      step: 1
-      max: 100
-      min: 0
-  y:
-    type: range
-    options:
-      step: 1
-      max: 100
-      min: 0
+   

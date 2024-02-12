@@ -22,11 +22,6 @@
 {% assign tablet_styles = tablet_styles | append: 'width: ' | append: tablet_width | append: 'px; height: ' | append: tablet_height | append: 'px;' %}
 {% assign mobile_styles = mobile_styles | append: 'width: ' | append: mobile_width | append: 'px; height: ' | append: mobile_height | append: 'px;' %}
 
-{% assign desktop_styles = desktop_styles | render_clip_path: styles, 'desktop' %}
-{% assign tablet_styles = tablet_styles | render_clip_path: styles, 'tablet' %}
-{% assign mobile_styles = mobile_styles | render_clip_path: styles, 'mobile' %}
-
-
 {% assign container_name = "page-shape" | UUID %}
 
 <style>

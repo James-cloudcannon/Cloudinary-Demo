@@ -82,7 +82,6 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addFilter("render_position", StyleRenderer.render_position);
 	eleventyConfig.addFilter("render_position_percentage", StyleRenderer.render_position_percentage);
 	eleventyConfig.addFilter("render_transform", StyleRenderer.render_transform);
-	eleventyConfig.addFilter("render_clip_path", StyleRenderer.render_clip_path);
 	eleventyConfig.addFilter("render_logo_transform", StyleRenderer.render_logo_transform);
 	eleventyConfig.addFilter("render_text_alignment", StyleRenderer.render_text_alignment);
 	eleventyConfig.addFilter("render_heading_text_size", StyleRenderer.render_heading_text_size);
