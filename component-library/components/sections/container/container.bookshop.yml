@@ -23,7 +23,7 @@ blueprint:
     align: none
     shadow: false
     page_decoration:
-      active: true
+      active: false
       image_path: ""
       background_position: right
       background_size: contain
