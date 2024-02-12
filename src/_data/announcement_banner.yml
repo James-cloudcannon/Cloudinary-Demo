@@ -1,6 +1,5 @@
-announcement_banner_content: >-
-  🌟 Announcement Placeholder 🌟
-color: black
+announcement_banner_content: 🌟 Announcement Placeholder 🌟
+color: cloudinary-blue
 _inputs:
   color:
     type: select
