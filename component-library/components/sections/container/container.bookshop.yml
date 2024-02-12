@@ -29,13 +29,13 @@ blueprint:
       background_size: contain
       width: 200
       position:
-        use_top_positioning: true
+        use_top_positioning: false
         image_top: 0
         use_right_positioning: false
         image_right: 0
         use_bottom_positioning: false
         image_bottom: 0
-        use_left_positioning: true
+        use_left_positioning: false
         image_left: 0
     desktop:
       margin:
