@@ -55,14 +55,9 @@ _inputs:
     options:
       values:
         - white
-        - caramel
-        - sky
         - sea
         - cloudinary-blue
-        - cloudinary-blue-light
         - cloudinary-dark-blue
-        - ash
-        - night
         - transparent
         - rich-black
 _structures:

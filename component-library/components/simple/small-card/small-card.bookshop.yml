@@ -53,13 +53,10 @@ _inputs:
     options:
       values:
         - white
-        - caramel
-        - sky
         - sea
         - cloudinary-blue
-        - ash
-        - night
         - midnight
+        - rich-black
   border_color:
     type: select
     options:
