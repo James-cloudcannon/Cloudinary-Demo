@@ -150,6 +150,14 @@ collections_config:
     disable_add: true
     disable_add_folder: true
     disable_file_actions: true
+  meta-data:
+    description: Metadata for site layouts and other data
+    output: false
+    path: '_data'
+    icon: settings_applications
+    filter: 
+      exclude:
+        - filter-blog-category-tags.yml
 collections_config_override: true
 _inputs:
   layout:
