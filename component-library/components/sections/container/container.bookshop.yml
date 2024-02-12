@@ -121,6 +121,7 @@ _inputs:
       values:
         - normal
         - small
+        - full
   align:
     comment: Customize how the section is aligned on the page
     type: select

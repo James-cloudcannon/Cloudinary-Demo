@@ -1,5 +1,7 @@
 {% assign classes = styles.classes %}
 
+
+
 {% assign desktop_styles = "" %}
 {% assign tablet_styles = "" %}
 {% assign mobile_styles = "" %}
@@ -93,7 +95,7 @@
 </style>
 
 <div class="{{ classes }} relative {{ container_name }}">
-	<div class="container relative">
+	<div class="container relative {% if styles.size == 'full' %} max-w-full {% endif %}">
 		{% for component in content.blocks %}
 			{% bookshop "{{component._bookshop_name}}" bind: component %}
 		{% endfor %}
