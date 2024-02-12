@@ -23,6 +23,14 @@ blueprint:
     align: none
     shadow: false
     desktop:
+      page_decoration:
+        active: true
+        image_path: ""
+        position:
+          top: 0
+          right: 0
+          bottom: 0
+          left: 0
       margin:
         top: 0
         right: 0
@@ -34,6 +42,14 @@ blueprint:
         bottom: 0
         left: 0
     tablet:
+      page_decoration:
+        active: false
+        image_path: ""
+        position:
+          top: 0
+          right: 0
+          bottom: 0
+          left: 0
       margin:
         active: false
         top: 0
@@ -47,6 +63,14 @@ blueprint:
         bottom: 0
         left: 0
     mobile:
+      page_decoration:
+        active: false
+        image_path: ""
+        position:
+          top: 0
+          right: 0
+          bottom: 0
+          left: 0
       margin:
         active: false
         top: 0
@@ -131,3 +155,5 @@ _inputs:
         - center
   classes:
     hidden: true
+  page_decoration:
+    comment: Add a decorative image to the background of this section
