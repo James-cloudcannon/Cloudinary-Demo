@@ -39,7 +39,14 @@ blueprint:
         skew: 0
     tablet:
       clip_path:
-        path: "polygon(50% 0%, 0% 100%, 100% 100%)"
+        clip_path:
+        points:
+          - x: 50
+            y: 0
+          - x: 0
+            y: 100
+          - x: 100
+            y: 100
       size:
         active: false
         height: 0
@@ -62,7 +69,14 @@ blueprint:
         skew: 0
     mobile:
       clip_path:
-        path: "polygon(50% 0%, 0% 100%, 100% 100%)"
+        clip_path:
+        points:
+          - x: 50
+            y: 0
+          - x: 0
+            y: 100
+          - x: 100
+            y: 100
       size:
         active: false
         height: 0
