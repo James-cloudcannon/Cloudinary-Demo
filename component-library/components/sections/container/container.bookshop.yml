@@ -25,11 +25,18 @@ blueprint:
     page_decoration:
       active: true
       image_path: ""
+      background_position: right
+      background_size: contain
+      width: 200
       position:
-        top: 0
-        right: 0
-        bottom: 0
-        left: 0
+        use_top_positioning: true
+        image_top: 0
+        use_right_positioning: false
+        image_right: 0
+        use_bottom_positioning: false
+        image_bottom: 0
+        use_left_positioning: true
+        image_left: 0
     desktop:
       margin:
         top: 0
@@ -141,3 +148,33 @@ _inputs:
     hidden: true
   page_decoration:
     comment: Add a decorative image to the background of this section
+  width:
+    type: number
+    comment: The width of the decroative image in pixels
+  image_top: 
+    type: number
+    hidden: "!use_top_positioning"
+  image_right: 
+    type: number
+    hidden: "!use_right_positioning"
+  image_bottom:
+    type: number
+    hidden: "!use_bottom_positioning"
+  image_left:
+    type: number
+    hidden: "!use_left_positioning"
+  background_position:
+    type: select
+    options:
+      values:
+        - center
+        - left
+        - right
+        - top 
+        - bottom
+  background_size:
+    type: select
+    options:
+      values:
+        - cover
+        - contain

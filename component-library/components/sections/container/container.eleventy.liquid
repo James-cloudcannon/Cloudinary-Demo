@@ -80,15 +80,24 @@
 		.{{ container_name }}::before {
 			content: '';
 			position: absolute;
-			background-image: url('{{ styles.desktop.page_decoration.image_path }}');
-			background-size: contain;
+			background-image: url('{{ styles.page_decoration.image_path }}');
+			background-size: {{ styles.page_decoration.background_size }};
+			background-position: {{ styles.page_decoration.background_position }};
 			background-repeat: no-repeat;
-			top: {{ styles.desktop.page_decoration.position.top }}px;
-			right: {{ styles.desktop.page_decoration.position.right }}px;
-			bottom: {{ styles.desktop.page_decoration.position.bottom }}px;
-			left: {{ styles.desktop.page_decoration.position.left }}px;
-			width: {{ styles.desktop.page_decoration.size.width }}px;
-			height: auto;
+			{% if styles.page_decoration.position.use_top_positioning %}
+				top: {{ styles.page_decoration.position.image_top }}px;
+			{% endif %}
+			{% if styles.page_decoration.position.use_right_positioning %}
+				right: {{ styles.page_decoration.position.image_right }}px;
+			{% endif %}
+			{% if styles.page_decoration.position.use_bottom_positioning %}
+				bottom: {{ styles.page_decoration.position.image_bottom }}px;
+			{% endif %}
+			{% if styles.page_decoration.position.use_left_positioning %}
+				left: {{ styles.page_decoration.position.image_left }}px;
+			{% endif %}
+			min-width: {{ styles.page_decoration.width }}px;
+			min-height: 100%;
 		}
 	{% endif %}
 	@media (min-width: 1280px) {
