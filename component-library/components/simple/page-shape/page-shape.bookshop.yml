@@ -14,7 +14,6 @@ blueprint:
     hide_overflow: true
     desktop:
       clip_path:
-        shape: "polygon"
         points:
           - x: 50
             y: 0
@@ -153,10 +152,6 @@ _inputs:
       step: any
       max: 1000
       min: 0
-  shape:
-    type: select
-    options:
-      - polygon
   points:
     comment: The points of the polygon
   x:

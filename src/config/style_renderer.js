@@ -294,46 +294,20 @@ module.exports = {
 	render_clip_path: function(styles, fm, device) {
 		let clipShape = module.exports.get_data(fm, device, 'clip_path');
 	
-		if (clipShape === undefined || clipShape.shape === undefined) {
-			return styles;
-		}
+		let clipPathTransformations = '';
 	
-		let clipPathValue = '';
-	
-		switch (clipShape.shape.toLowerCase()) {
-			case 'polygon':
-				if (Array.isArray(clipShape.points)) {
-					const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
-					clipPathValue += `polygon(${points})`;
-				}
-				break;
-			case 'circle':
-				if ('radius' in clipShape) {
-					const cx = clipShape.cx || 50; 
-					const cy = clipShape.cy || 50; 
-					clipPathValue += `circle(${clipShape.radius}% at ${cx}% ${cy}%)`;
-				}
-				break;
-			case 'ellipse':
-				if ('rx' in clipShape && 'ry' in clipShape) {
-					const ecx = clipShape.cx || 50; 
-					const ecy = clipShape.cy || 50;
-					clipPathValue += `ellipse(${clipShape.rx}% ${clipShape.ry}% at ${ecx}% ${ecy}%)`;
-				}
-				break;
-		}
-	
-		if (clipPathValue) {
-			styles += `clip-path: ${clipPathValue}; `;
+		if (clipShape !== undefined && Array.isArray(clipShape.points)) {
+			const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
+			clipPathTransformations = `polygon(${points}); `;
 		}
 	
 		if ('hide_overflow' in fm && fm.hide_overflow) {
-			styles += 'overflow: hidden; ';
+			clipPathTransformations += 'overflow: hidden; ';
 		}
 	
-		return styles;
+		return styles + `clip-path: ${clipPathTransformations};`;
 	},
-
+	
 
 	render_logo_transform: function(styles, fm, device) {
 		let transform = module.exports.get_data(fm, device, 'logo_transform');
