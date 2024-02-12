@@ -11,8 +11,8 @@ spec:
 blueprint:
   content:
     rows:
-      - title: What happens at the end of my trial?
-        description: Before the end of your trial, we'll send you an email asking you to enter your credit card to continue using CloudCannon. If no credit card is entered by the end of the trial, you'll be downgraded to our personal plan.
+      - title: lorem ipsum  
+        description: lorem ipsum dolor sit amet, consectetur adipiscing elit.
         prefix_icon:
           icon_path:
           icon_color:

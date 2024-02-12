@@ -15,7 +15,7 @@ blueprint:
       tablet_image: 
       mobile_image:
     video: "https://player.vimeo.com/video/668496650?h=88572f7829&amp;app_id=122963"
-    title: "How does CloudCannon work?"
+    title: "How does Cloudinary work?"
   styles:
     desktop:
       margin:
