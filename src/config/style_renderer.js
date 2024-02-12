@@ -293,36 +293,44 @@ module.exports = {
 
 	render_clip_path: function(styles, fm, device) {
 		let clipShape = module.exports.get_data(fm, device, 'clip_path');
-
-		if (clipShape === undefined || clipShape.shape === undefined || !Array.isArray(clipShape.points) && clipShape.shape !== 'circle' && clipShape.shape !== 'ellipse') {
+	
+		if (clipShape === undefined || clipShape.shape === undefined) {
 			return styles;
 		}
-
+	
 		let clipPathValue = '';
-
+	
 		switch (clipShape.shape.toLowerCase()) {
 			case 'polygon':
-				const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
-				clipPathValue = `polygon(${points})`;
+				if (Array.isArray(clipShape.points)) {
+					const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
+					clipPathValue += `polygon(${points})`;
+				}
 				break;
 			case 'circle':
-				const { radius, cx = 50, cy = 50 } = clipShape; 
-				clipPathValue = `circle(${radius}% at ${cx}% ${cy}%)`;
+				if ('radius' in clipShape) {
+					const cx = clipShape.cx || 50; 
+					const cy = clipShape.cy || 50; 
+					clipPathValue += `circle(${clipShape.radius}% at ${cx}% ${cy}%)`;
+				}
 				break;
 			case 'ellipse':
-				const { rx, ry, cx: ecx = 50, cy: ecy = 50 } = clipShape;
-				clipPathValue = `ellipse(${rx}% ${ry}% at ${ecx}% ${ecy}%)`;
+				if ('rx' in clipShape && 'ry' in clipShape) {
+					const ecx = clipShape.cx || 50; 
+					const ecy = clipShape.cy || 50;
+					clipPathValue += `ellipse(${clipShape.rx}% ${clipShape.ry}% at ${ecx}% ${ecy}%)`;
+				}
 				break;
 		}
-
-		if (clipPathValue !== '') {
-			styles += `clip-path: ${clipPathValue};`;
+	
+		if (clipPathValue) {
+			styles += `clip-path: ${clipPathValue}; `;
 		}
-
+	
 		if ('hide_overflow' in fm && fm.hide_overflow) {
-			styles += 'overflow: hidden;';
+			styles += 'overflow: hidden; ';
 		}
-
+	
 		return styles;
 	},
 
