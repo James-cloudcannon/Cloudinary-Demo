@@ -151,6 +151,8 @@ module.exports = {
 		return styles +  `font-size: ${textSize};`;
 	},
 
+	
+
 	render_text_block_text_size: function(styles, fm, device) {
 		let sizing = module.exports.get_data(fm, device, 'text_sizing');
 
@@ -288,6 +290,42 @@ module.exports = {
 
 		return styles + `transform: ${transformations};`
 	},
+
+	render_clip_path: function(styles, fm, device) {
+		let clipShape = module.exports.get_data(fm, device, 'clip_path');
+
+		if (clipShape === undefined || clipShape.shape === undefined || !Array.isArray(clipShape.points) && clipShape.shape !== 'circle' && clipShape.shape !== 'ellipse') {
+			return styles;
+		}
+
+		let clipPathValue = '';
+
+		switch (clipShape.shape.toLowerCase()) {
+			case 'polygon':
+				const points = clipShape.points.map(point => `${point.x}% ${point.y}%`).join(', ');
+				clipPathValue = `polygon(${points})`;
+				break;
+			case 'circle':
+				const { radius, cx = 50, cy = 50 } = clipShape; 
+				clipPathValue = `circle(${radius}% at ${cx}% ${cy}%)`;
+				break;
+			case 'ellipse':
+				const { rx, ry, cx: ecx = 50, cy: ecy = 50 } = clipShape;
+				clipPathValue = `ellipse(${rx}% ${ry}% at ${ecx}% ${ecy}%)`;
+				break;
+		}
+
+		if (clipPathValue !== '') {
+			styles += `clip-path: ${clipPathValue};`;
+		}
+
+		if ('hide_overflow' in fm && fm.hide_overflow) {
+			styles += 'overflow: hidden;';
+		}
+
+		return styles;
+	},
+
 
 	render_logo_transform: function(styles, fm, device) {
 		let transform = module.exports.get_data(fm, device, 'logo_transform');

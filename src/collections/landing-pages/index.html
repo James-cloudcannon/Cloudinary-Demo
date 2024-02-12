@@ -2771,9 +2771,18 @@ content_blocks:
             background_color: rgb(255, 255, 255)
             hide_overflow: true
             desktop:
+              clip_path:
+                shape: "polygon"
+                points:
+                  - x: 0
+                    y: 0
+                  - x: 0
+                    y: 100
+                  - x: 100
+                    y: 0
               size:
                 height: 100
-                width: 1000
+                width: 700
               visibility:
                 hide: false
               position:
@@ -2782,12 +2791,21 @@ content_blocks:
                 bottom: 0
                 left: 0
               transform:
-                scale: 1.2
-                translate_x: -800
+                scale: 1
+                translate_x: -90
                 translate_y: 0
                 rotate: 0
-                skew: 277
+                skew: 0
             tablet:
+              clip_path:
+                shape: "polygon"
+                points:
+                  - x: 50
+                    y: 0
+                  - x: 0
+                    y: 100
+                  - x: 100
+                    y: 100
               size:
                 active: false
                 height: 0
@@ -2809,6 +2827,15 @@ content_blocks:
                 rotate: 0
                 skew: 0
             mobile:
+              clip_path:
+                shape: "polygon"
+                points:
+                  - x: 50
+                    y: 0
+                  - x: 0
+                    y: 100
+                  - x: 100
+                    y: 100
               size:
                 active: false
                 height: 0
